@@ -78,6 +78,8 @@ public class Main extends PApplet {
 			if(mouseX > 100 && mouseX < 310 && mouseY > 220 && mouseY < 265) {
 				image(instruP, 100,220);
 			}
+			fill (255);
+			ellipse (100,100,100,100);
 			
 			
 			break;
