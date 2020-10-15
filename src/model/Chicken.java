@@ -13,6 +13,7 @@ public class Chicken extends Character{
 		
 		polloDer = app.loadImage("img/galloDer.png");
 		polloIzq = app.loadImage("img/galloIzq.png");
+		
 	}
 
 	@Override
@@ -35,6 +36,7 @@ public class Chicken extends Character{
 	public void agregarBalas() {
 		// TODO Auto-generated method stub
 		balas.add(new Eggs(posx, posy, this.dir, app));
+		
 		
 	}
 

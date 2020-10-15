@@ -1,21 +1,25 @@
 package model;
 
 import processing.core.PApplet;
+import processing.core.PImage;
 
 public class Water extends Bullet{
+	
+	PImage water;
 
 	public Water(int px, int py, int dire, PApplet app) {
 		super(px, py, dire, app);
 		this.tipo = "water";
 		// TODO Auto-generated constructor stub
+		
+		water = app.loadImage("img/water.png");
 	}
 
 	@Override
 	public void pintar() {
 		// TODO Auto-generated method stub
 	
-		app.fill(100,355,120);
-		app.ellipse(px+20, py+30, 20, 20);
+		app.image(water, px, py);
 		
 	}
 

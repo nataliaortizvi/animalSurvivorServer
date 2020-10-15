@@ -55,6 +55,8 @@ public class Main extends PApplet {
 		pasto = loadImage("img/pasto.png");
 		
 		
+		
+		
 	}
 	
 	public void draw() {
@@ -78,8 +80,6 @@ public class Main extends PApplet {
 			if(mouseX > 100 && mouseX < 310 && mouseY > 220 && mouseY < 265) {
 				image(instruP, 100,220);
 			}
-			fill (255);
-			ellipse (100,100,100,100);
 			
 			
 			break;
@@ -110,6 +110,9 @@ public class Main extends PApplet {
 			
 			pollito.pintar();
 			pollito.pintarBalas();
+			
+			elefantico.pintar();
+			elefantico.pintarBalas();
 			
 
 			
@@ -149,6 +152,19 @@ public class Main extends PApplet {
 		if(keyCode == RIGHT) {
 			pollito.setDir(1);
 		}
+		
+
+
+		if(key == 'm' || key == 'M') {
+			elefantico.agregarBalas();
+		}
+		if(keyCode == LEFT) {
+			elefantico.setDir(2);
+		}
+		if(keyCode == RIGHT) {
+			elefantico.setDir(1);
+		}
+		
 	}
 	
 	public void mousePressed(){
