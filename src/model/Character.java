@@ -28,6 +28,10 @@ public abstract class Character {
 		for(int i=0; i<balas.size(); i++) {
 			balas.get(i).pintar();
 			balas.get(i).mover();
+			
+			if(balas.get(i).getPx() > 1060) {
+				balas.remove(i);
+			}
 		}
 	}
 	

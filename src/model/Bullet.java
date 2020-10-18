@@ -14,7 +14,7 @@ public abstract class Bullet {
 		this.px = px;
 		this.py = py;
 		this.dire = dire;
-		this.velo = 3;
+		this.velo = 5;
 		this.app = app;
 	}
 	

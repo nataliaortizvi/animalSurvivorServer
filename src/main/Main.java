@@ -1,5 +1,8 @@
 package main;
 
+import java.net.InetAddress;
+import java.net.UnknownHostException;
+
 import model.Chicken;
 import model.Elephant;
 import model.Pig;
@@ -9,9 +12,10 @@ import processing.core.PImage;
 public class Main extends PApplet {
 	
 	int pantalla;
-	PImage pantInicio, pantPlayer, pantControl, pantInstru, pantJuego, pantGanador, jugar, jugarP,
-	instru, instruP, contro, controP, pasto;
+	PImage pantUno, prim, primP, pantInicio, pantPlayer, pantControl, pantInstru, pantJuego, pantGanador, jugar, jugarP,
+	instru, instruP, contro, controP, pasto, atras, atrasP, jugarPP, jugarPPP;
 	
+	String ip;
 	Pig cerdito;
 	Chicken pollito;
 	Elephant elefantico;
@@ -30,7 +34,7 @@ public class Main extends PApplet {
 	
 	public void setup() {
 		//variables 
-		pantalla = 4;
+		pantalla = -1;
 		cerdito = new Pig (300,345,this);
 		pollito = new Chicken (600, 340, this);
 		elefantico = new Elephant (450, 340, this);
@@ -38,12 +42,29 @@ public class Main extends PApplet {
 		launcher = TCPLauncher.getInstance();
 		launcher.setObserver(this);
 		
+		//saber cual es mi ip para colocarla en el socket del cliente
+		 try {
+	            InetAddress n = InetAddress.getLocalHost();
+	            ip = n.getHostAddress();
+	            //System.out.println(ip);
+
+	        } catch (UnknownHostException e) {
+	            e.printStackTrace();
+	        }
+		
 		
 		//imagenes
+		pantUno = loadImage("img/inicio.png");
+		prim = loadImage("img/prim.png");
+		primP = loadImage("img/primP.png");
 		pantInicio = loadImage("img/pantallaInicio.png");
 		pantPlayer = loadImage("img/pantallaPlayer.png");
-		//pantInstru = loadImage("img/");
-		//pantControl = loadImage("img/");
+		pantInstru = loadImage("img/instru.png");
+		atras = loadImage("img/atras.png");
+		atrasP = loadImage("img/atrasP.png");
+		jugarPP = loadImage("img/jugarP.png");
+		jugarPPP = loadImage("img/jugarPP.png");
+		pantControl = loadImage("img/control.png");
 		pantJuego = loadImage("img/pantallaJuego.png");
 		pantGanador = loadImage("img/pantallaGanador.png");
 		jugar = loadImage("img/jugar.png");
@@ -64,8 +85,18 @@ public class Main extends PApplet {
 		
 		
 		switch(pantalla) {
+		case -1:
+			//pantalla welcome
+			image(pantUno,0,0);
+			image(prim, 395,350);
+			
+			if(mouseX > 395 && mouseX < 650 && mouseY > 350 && mouseY < 400) {
+				image(primP, 395,350);
+			}
+			
+			break;
 		case 0:
-			//pantalla inicio
+			//pantalla home
 			image(pantInicio,0,0);
 			image(jugar, 730,175);
 			
@@ -82,18 +113,49 @@ public class Main extends PApplet {
 			}
 			
 			
+			
+			
 			break;
 		case 1:
 			//pantalla controles
+			image(pantControl,0,0);
+			image(jugarPP, 930,10);
+			fill(21,118,147);
+			textSize(20);
+			text(ip, 460,130);
+			
+			if(mouseX > 930 && mouseX < 1030 && mouseY > 10 && mouseY < 53) {
+				image(jugarPPP, 930,10);
+			}
 			
 			break;
 		case 2:
 			//pantalla instrucciones
+			image(pantInstru,0,0);
+			image(jugarPP, 930,10);
+			image(atras, 20,10);
+			
+			if(mouseX > 20 && mouseX < 120 && mouseY > 10 && mouseY < 53) {
+				image(atrasP, 20,10);
+			}
+			if(mouseX > 930 && mouseX < 1030 && mouseY > 10 && mouseY < 53) {
+				image(jugarPPP, 930,10);
+			}
+			
 			
 			break;
 		case 3:
 			//pantalla elegir jugadores
 			image(pantPlayer,0,0);
+			image(jugarPP, 930,10);
+			image(atras, 20,10);
+			
+			if(mouseX > 20 && mouseX < 120 && mouseY > 10 && mouseY < 53) {
+				image(atrasP, 20,10);
+			}
+			if(mouseX > 930 && mouseX < 1030 && mouseY > 10 && mouseY < 53) {
+				image(jugarPPP, 930,10);
+			}
 			
 			break;
 		case 4:
@@ -104,17 +166,14 @@ public class Main extends PApplet {
 				//Session sesion = launcher.getSesiones().get(i);
 			}
 			
-			
 			cerdito.pintar();
-			cerdito.pintarBalas();
-			
 			pollito.pintar();
+			elefantico.pintar();
+			
+			elefantico.pintarBalas();
+			cerdito.pintarBalas();
 			pollito.pintarBalas();
 			
-			elefantico.pintar();
-			elefantico.pintarBalas();
-			
-
 			
 			image(pasto,0,365);
 			break;
@@ -124,7 +183,7 @@ public class Main extends PApplet {
 			
 			break;
 		}
-		
+		 
 		fill(355,0,0);
 		text("x:"+mouseX+"y:"+mouseY, mouseX, mouseY);
 		
@@ -169,8 +228,14 @@ public class Main extends PApplet {
 	
 	public void mousePressed(){
 		switch(pantalla) {
+		case -1:
+			//pantalla welcome
+			if(mouseX > 395 && mouseX < 650 && mouseY > 350 && mouseY < 400) {
+				pantalla = 1;
+			}
+			break;
 		case 0:
-			//pantalla inicio
+			//pantalla home
 			
 			//boton jugar
 			if(mouseX > 730 && mouseX < 940 && mouseY > 175 && mouseY < 220) {
@@ -186,9 +251,40 @@ public class Main extends PApplet {
 			}
 			
 			break;
+		case 1:
+			//pantalla controles
+			
+			//boton jugar
+			if(mouseX > 930 && mouseX < 1030 && mouseY > 10 && mouseY < 53) {
+				pantalla = 0;
+			}
+			break;
 		case 2:
 			//pantalla instrucciones
 			
+			//boton home
+			if(mouseX > 20 && mouseX < 120 && mouseY > 10 && mouseY < 53) {
+				pantalla = 0;
+			}
+			
+			//boton jugar
+			if(mouseX > 930 && mouseX < 1030 && mouseY > 10 && mouseY < 53) {
+				pantalla = 3;
+			}
+			
+			break;
+		case 3:
+			//pantalla jugadores
+			
+			//boton home
+			if(mouseX > 20 && mouseX < 120 && mouseY > 10 && mouseY < 53) {
+				pantalla = 0;
+			}
+			
+			//boton jugar
+			if(mouseX > 930 && mouseX < 1030 && mouseY > 10 && mouseY < 53) {
+				pantalla = 4;
+			}
 			break;
 		case 5:
 			//pantalla ganador-perdedor
