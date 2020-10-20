@@ -42,7 +42,8 @@ public class TCPSingletonJ2 extends Thread{
 			System.out.println("Esperando en el 6000...");
 			
 			socket = server.accept();
-			System.out.println("Conectamos");
+			System.out.println("Conectamos el J2");
+			observer.cuandoLlegueElMensaje("Jugador2 conectado");
 			
 			//emisor
 			InputStream is = socket.getInputStream();
@@ -55,8 +56,8 @@ public class TCPSingletonJ2 extends Thread{
 			//Recepcion
 			while(true) {
 				String lastMessage = reader.readLine();
-				System.out.println("lastMessage");
-				observer.cuandoLlegueElMensaje("Jugador 2 dice: "+lastMessage);
+				//System.out.println(lastMessage);
+				observer.cuandoLlegueElMensaje("Jugador2 dice: "+lastMessage);
 			}
 			
 		} catch (IOException e) {

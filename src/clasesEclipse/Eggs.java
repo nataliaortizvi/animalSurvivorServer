@@ -1,26 +1,25 @@
-package model;
+package clasesEclipse;
 
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class Water extends Bullet{
+public class Eggs extends Bullet{
 	
-	PImage water;
+	PImage egg;
 
-	public Water(int px, int py, int dire, PApplet app) {
+	public Eggs(int px, int py, int dire, PApplet app) {
 		super(px, py, dire, app);
-		this.tipo = "water";
+		this.tipo = "eggs";
 		// TODO Auto-generated constructor stub
 		
-		water = app.loadImage("img/water.png");
+		egg = app.loadImage("img/egg.png");
 	}
 
 	@Override
 	public void pintar() {
 		// TODO Auto-generated method stub
-	
-		app.image(water, px, py);
 		
+		app.image(egg, px, py);
 	}
 
 }

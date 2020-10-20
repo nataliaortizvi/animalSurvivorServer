@@ -1,4 +1,4 @@
-package model;
+package clasesEclipse;
 
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -6,10 +6,11 @@ import processing.core.PImage;
 public class Pig extends Character{
 	
 	PImage cerdoDer, cerdoIzq;
+	String type = "pig";
 
+	//constructor
 	public Pig(int posx, int posy, PApplet app) {
 		super(posx, posy, app);
-		this.name = "pig";
 		
 		cerdoDer = app.loadImage("img/cerdoDer.png");
 		cerdoIzq = app.loadImage("img/cerdoIzq.png");

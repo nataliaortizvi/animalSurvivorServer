@@ -1,4 +1,4 @@
-package model;
+package clasesEclipse;
 
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -6,16 +6,18 @@ import processing.core.PImage;
 public class Chicken extends Character{
 	
 	PImage polloDer, polloIzq;
+	String type = "chicken";
 
+	//constructor
 	public Chicken(int posx, int posy, PApplet app) {
 		super(posx, posy, app);
-		this.name = "chicken";
 		
 		polloDer = app.loadImage("img/galloDer.png");
 		polloIzq = app.loadImage("img/galloIzq.png");
 		
 	}
-
+	
+	
 	@Override
 	public void pintar() {
 		// TODO Auto-generated method stub

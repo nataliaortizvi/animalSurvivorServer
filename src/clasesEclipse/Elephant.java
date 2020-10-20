@@ -1,4 +1,4 @@
-package model;
+package clasesEclipse;
 
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -6,15 +6,19 @@ import processing.core.PImage;
 public class Elephant extends Character{
 	
 	PImage elefanteDer, elefanteIzq;
+	String type = "elephant";
 
+	
+	//constructor
 	public Elephant(int posx, int posy, PApplet app) {
 		super(posx, posy, app);
-		this.name = "elephant";
 		
 		elefanteDer = app.loadImage("img/elefanteDer.png");
 		elefanteIzq = app.loadImage("img/elefanteIzq.png");
 	}
 
+	
+	
 	@Override
 	public void pintar() {
 		// TODO Auto-generated method stub

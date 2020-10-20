@@ -1,4 +1,4 @@
-package model;
+package clasesEclipse;
 
 import processing.core.PApplet;
 

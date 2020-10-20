@@ -10,6 +10,7 @@ import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+
 public class TCPSingletonJ1 extends Thread{
 	
 	private static TCPSingletonJ1 unicaInstancia;
@@ -43,7 +44,8 @@ public class TCPSingletonJ1 extends Thread{
 			System.out.println("Esperando en el 5000...");
 			
 			socket = server.accept();
-			System.out.println("Conectamos");
+			System.out.println("Conectamos el J1");
+			observer.cuandoLlegueElMensaje("Jugador1 conectado");
 			
 			//emisor
 			InputStream is = socket.getInputStream();
@@ -56,8 +58,8 @@ public class TCPSingletonJ1 extends Thread{
 			//Recepcion
 			while(true) {
 				String lastMessage = reader.readLine();
-				System.out.println("lastMessage");
-				observer.cuandoLlegueElMensaje("Jugador 1 dice: "+lastMessage);
+
+				observer.cuandoLlegueElMensaje(lastMessage);
 			}
 			
 		} catch (IOException e) {

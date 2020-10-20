@@ -1,4 +1,4 @@
-package model;
+package clasesEclipse;
 
 import java.util.ArrayList;
 
@@ -8,7 +8,7 @@ public abstract class Character {
 	
 	//atributos
 	protected int posx, posy, vel, dir, vida;
-	protected String name;
+	protected String type;
 	protected PApplet app;
 	protected ArrayList <Bullet> balas;
 	
@@ -23,6 +23,7 @@ public abstract class Character {
 		
 		balas = new ArrayList <Bullet>();
 	}
+	
 	
 	public void pintarBalas() {
 		for(int i=0; i<balas.size(); i++) {
@@ -70,14 +71,6 @@ public abstract class Character {
 
 	public void setDir(int dir) {
 		this.dir = dir;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
 	}
 
 	public PApplet getApp() {

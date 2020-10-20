@@ -3,9 +3,12 @@ package main;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import model.Chicken;
-import model.Elephant;
-import model.Pig;
+import com.google.gson.Gson;
+
+import clasesEclipse.Chicken;
+import clasesEclipse.Elephant;
+import clasesEclipse.Pig;
+import modelo.CoorAnimal;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -13,15 +16,19 @@ public class Main extends PApplet implements OnMessageListener{
 	
 	int pantalla;
 	PImage pantUno, prim, primP, pantInicio, pantPlayer, pantControl, pantInstru, pantJuego, pantGanador, jugar, jugarP,
-	instru, instruP, contro, controP, pasto, atras, atrasP, jugarPP, jugarPPP;
+	instru, instruP, contro, controP, pasto, atras, atrasP, jugarPP, jugarPPP, player1, player2;
 	
-	String ip;
+	String ip, j1,j2;
 	Pig cerdito;
 	Chicken pollito;
 	Elephant elefantico;
 	
+	Boolean j1pig = false, j1elef = false, j1chic = false;
+	
 	private TCPSingletonJ1 tcpJ1;
 	private TCPSingletonJ2 tcpJ2;
+	
+	//private Boolean j1pig = false;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -36,9 +43,10 @@ public class Main extends PApplet implements OnMessageListener{
 	public void setup() {
 		//variables 
 		pantalla = -1;
-		cerdito = new Pig (300,345,this);
+		
+		/*cerdito = new Pig (300,345,this);
 		pollito = new Chicken (600, 340, this);
-		elefantico = new Elephant (450, 340, this);
+		elefantico = new Elephant (450, 340, this);*/
 		
 		tcpJ1 = TCPSingletonJ1.getInstance();
 		tcpJ1.setObserver(this);
@@ -47,6 +55,7 @@ public class Main extends PApplet implements OnMessageListener{
 		tcpJ2 = TCPSingletonJ2.getInstance();
 		tcpJ2.setObserver(this);
 		tcpJ2.start();
+		
 		
 		
 		//saber cual es mi ip para colocarla en el socket del cliente
@@ -81,6 +90,8 @@ public class Main extends PApplet implements OnMessageListener{
 		contro = loadImage("img/controles.png");
 		controP = loadImage("img/controlesPress.png");
 		pasto = loadImage("img/pasto.png");
+		player1 = loadImage("img/jugador1.png");
+		player2 = loadImage("img/jugador2.png");
 		
 		
 		
@@ -131,9 +142,23 @@ public class Main extends PApplet implements OnMessageListener{
 			textSize(20);
 			text(ip, 460,130);
 			
+			textSize(30);
+			if(j1==null) {
+				
+			}else {
+				text(j1, 380,230);
+			}
+			if(j2==null) {
+				
+			}else {
+				text(j2, 380,300);
+			}
+			
 			if(mouseX > 930 && mouseX < 1030 && mouseY > 10 && mouseY < 53) {
 				image(jugarPPP, 930,10);
 			}
+			
+			
 			
 			break;
 		case 2:
@@ -164,19 +189,37 @@ public class Main extends PApplet implements OnMessageListener{
 				image(jugarPPP, 930,10);
 			}
 			
+			
+			if(j1pig==true) {
+				image(player1, 160,373);
+			}
+			if(j1chic==true) {
+				image(player1, 360,373);
+			}
+			if(j1elef==true) {
+				image(player1, 860,373);
+			}
+			
+			
 			break;
 		case 4:
 			//pantalla de juego
 			image(pantJuego,0,0);
 			
 			
-			cerdito.pintar();
-			pollito.pintar();
-			elefantico.pintar();
+			if(j1pig==true) {
+				cerdito.pintar();
+			}
+			if(j1chic==true) {
+				pollito.pintar();
+			}
+			if(j1elef==true) {
+				elefantico.pintar();
+			}
 			
-			elefantico.pintarBalas();
+			/*elefantico.pintarBalas();
 			cerdito.pintarBalas();
-			pollito.pintarBalas();
+			pollito.pintarBalas();*/
 			
 			
 			image(pasto,0,365);
@@ -193,7 +236,7 @@ public class Main extends PApplet implements OnMessageListener{
 		
 	}
 	
-	public void keyPressed() {
+	/*public void keyPressed() {
 		if(key == 'l' || key == 'L') {
 			cerdito.agregarBalas();
 		}
@@ -228,7 +271,7 @@ public class Main extends PApplet implements OnMessageListener{
 			elefantico.setDir(1);
 		}
 		
-	}
+	}*/
 	
 	public void mousePressed(){
 		switch(pantalla) {
@@ -244,6 +287,8 @@ public class Main extends PApplet implements OnMessageListener{
 			//boton jugar
 			if(mouseX > 730 && mouseX < 940 && mouseY > 175 && mouseY < 220) {
 				pantalla = 3;
+				tcpJ1.enviarMensaje("escoger");
+				//tcpJ2.enviarMensaje("escoger");
 			}
 			//boton control
 			if(mouseX > 100 && mouseX < 310 && mouseY > 140 && mouseY < 185) {
@@ -252,6 +297,7 @@ public class Main extends PApplet implements OnMessageListener{
 			//boton instrucciones
 			if(mouseX > 100 && mouseX < 310 && mouseY > 220 && mouseY < 265) {
 				pantalla = 2;
+				
 			}
 			
 			break;
@@ -274,6 +320,9 @@ public class Main extends PApplet implements OnMessageListener{
 			//boton jugar
 			if(mouseX > 930 && mouseX < 1030 && mouseY > 10 && mouseY < 53) {
 				pantalla = 3;
+				
+				tcpJ1.enviarMensaje("escoger");
+				//tcpJ2.enviarMensaje("escoger");
 			}
 			
 			break;
@@ -301,6 +350,54 @@ public class Main extends PApplet implements OnMessageListener{
 	@Override
 	public void cuandoLlegueElMensaje(String msg) {
 		// TODO Auto-generated method stub
+		
+		System.out.println("llego un mensaje:  "+msg);
+		
+		switch(pantalla) {
+		case 1:
+			//controles
+			if(msg.contains("Jugador1")) {
+				j1 = msg;
+			}
+			if(msg.contains("Jugador2")) {
+				j2 = msg;
+			}
+			break;
+		case 3:
+			//seleccion personajes
+			
+			
+			Gson gson = new Gson();
+			CoorAnimal coord = gson.fromJson(msg, CoorAnimal.class);
+			String tipo = coord.getType();
+			System.out.println(tipo);
+			
+			switch(tipo) {
+				case "pig":
+					cerdito = new Pig(coord.getPosx(), coord.getPosy(),this);
+					j1pig = true;
+					j1elef = false;
+					j1chic = false;
+					break;
+				case "chicken":
+					pollito = new Chicken(coord.getPosx(), coord.getPosy(),this);
+					j1pig = false;
+					j1elef = false;
+					j1chic = true;
+					break;
+				case "elephant":
+					elefantico = new Elephant(coord.getPosx(), coord.getPosy(),this);
+					j1pig = false;
+					j1elef = true;
+					j1chic = false;
+					break;
+			
+				}
+			
+			
+			break;
+		}
+		
 	}
 
 
