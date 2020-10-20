@@ -20,7 +20,8 @@ public class Main extends PApplet implements OnMessageListener{
 	Chicken pollito;
 	Elephant elefantico;
 	
-	TCPLauncher launcher;
+	private TCPSingletonJ1 tcpJ1;
+	private TCPSingletonJ2 tcpJ2;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -39,12 +40,14 @@ public class Main extends PApplet implements OnMessageListener{
 		pollito = new Chicken (600, 340, this);
 		elefantico = new Elephant (450, 340, this);
 		
-		launcher = TCPLauncher.getInstance();
-		launcher.setObserver(this);
+		tcpJ1 = TCPSingletonJ1.getInstance();
+		tcpJ1.setObserver(this);
+		tcpJ1.start();
 		
-		if(pantalla == 3) {
-			//launcher.enviar("escoger");
-		}
+		tcpJ2 = TCPSingletonJ2.getInstance();
+		tcpJ2.setObserver(this);
+		tcpJ2.start();
+		
 		
 		//saber cual es mi ip para colocarla en el socket del cliente
 		 try {
@@ -166,9 +169,6 @@ public class Main extends PApplet implements OnMessageListener{
 			//pantalla de juego
 			image(pantJuego,0,0);
 			
-			for(int i = 0; i <launcher.getSesiones().size(); i++) {
-				//Session sesion = launcher.getSesiones().get(i);
-			}
 			
 			cerdito.pintar();
 			pollito.pintar();
@@ -301,7 +301,6 @@ public class Main extends PApplet implements OnMessageListener{
 	@Override
 	public void cuandoLlegueElMensaje(String msg) {
 		// TODO Auto-generated method stub
-		
 	}
 
 
