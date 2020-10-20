@@ -57,7 +57,7 @@ public class TCPSingletonJ2 extends Thread{
 			while(true) {
 				String lastMessage = reader.readLine();
 				//System.out.println(lastMessage);
-				observer.cuandoLlegueElMensaje("Jugador2 dice: "+lastMessage);
+				observer.cuandoLlegueElMensaje("Jugador2 _"+lastMessage);
 			}
 			
 		} catch (IOException e) {

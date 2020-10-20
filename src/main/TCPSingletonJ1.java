@@ -11,7 +11,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 
-public class TCPSingletonJ1 extends Thread{
+public class TCPSingletonJ1 extends Thread {
 	
 	private static TCPSingletonJ1 unicaInstancia;
 	
@@ -59,7 +59,7 @@ public class TCPSingletonJ1 extends Thread{
 			while(true) {
 				String lastMessage = reader.readLine();
 
-				observer.cuandoLlegueElMensaje(lastMessage);
+				observer.cuandoLlegueElMensaje("Jugador1 _"+lastMessage);
 			}
 			
 		} catch (IOException e) {
@@ -78,7 +78,6 @@ public class TCPSingletonJ1 extends Thread{
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					
 				}
 				
 		).start();

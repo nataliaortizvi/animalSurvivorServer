@@ -14,17 +14,18 @@ import processing.core.PImage;
 
 public class Main extends PApplet implements OnMessageListener{
 	
-	int pantalla;
+	int pantalla, gameTime= 120, players = 0;
 	PImage pantUno, prim, primP, pantInicio, pantPlayer, pantControl, pantInstru, pantJuego, pantGanador, jugar, jugarP,
 	instru, instruP, contro, controP, pasto, atras, atrasP, jugarPP, jugarPPP, player1, player2;
 	
 	String ip, j1,j2;
-	Pig cerdito;
-	Chicken pollito;
-	Elephant elefantico;
+	Pig cerdito1, cerdito2;
+	Chicken pollito1, pollito2;
+	Elephant elefantico1, elefantico2;
 	
-	Boolean j1pig = false, j1elef = false, j1chic = false;
-	
+	Boolean j1pig = false, j1elef = false, j1chic = false, 
+			j2pig = false, j2elef = false, j2chic = false;
+
 	private TCPSingletonJ1 tcpJ1;
 	private TCPSingletonJ2 tcpJ2;
 	
@@ -44,10 +45,6 @@ public class Main extends PApplet implements OnMessageListener{
 		//variables 
 		pantalla = -1;
 		
-		/*cerdito = new Pig (300,345,this);
-		pollito = new Chicken (600, 340, this);
-		elefantico = new Elephant (450, 340, this);*/
-		
 		tcpJ1 = TCPSingletonJ1.getInstance();
 		tcpJ1.setObserver(this);
 		tcpJ1.start();
@@ -55,6 +52,25 @@ public class Main extends PApplet implements OnMessageListener{
 		tcpJ2 = TCPSingletonJ2.getInstance();
 		tcpJ2.setObserver(this);
 		tcpJ2.start();
+		
+		//2 minutos para que alguien gane o pierda
+			new Thread(
+				()-> {
+					while(gameTime > 0) {
+						if(pantalla == 4) {
+							gameTime --;
+						}
+						try {
+							Thread.sleep(1000);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				}
+			).start();
+		
+		
 		
 		
 		
@@ -146,18 +162,23 @@ public class Main extends PApplet implements OnMessageListener{
 			if(j1==null) {
 				
 			}else {
-				text(j1, 380,230);
+				text(j1, 400,230);
 			}
 			if(j2==null) {
 				
 			}else {
-				text(j2, 380,300);
+				text(j2, 400,300);
 			}
 			
 			if(mouseX > 930 && mouseX < 1030 && mouseY > 10 && mouseY < 53) {
 				image(jugarPPP, 930,10);
 			}
 			
+			if (players < 1) {
+				fill(350,100,150);
+				textSize(20);
+				text("(Conecta 2 controles para empezar a jugar)", 340,388);
+			}
 			
 			
 			break;
@@ -194,10 +215,20 @@ public class Main extends PApplet implements OnMessageListener{
 				image(player1, 160,373);
 			}
 			if(j1chic==true) {
-				image(player1, 360,373);
+				image(player1, 470,373);
 			}
 			if(j1elef==true) {
-				image(player1, 860,373);
+				image(player1, 770,373);
+			}
+			
+			if(j2pig==true) {
+				image(player2, 160,373);
+			}
+			if(j2chic==true) {
+				image(player2, 470,373);
+			}
+			if(j2elef==true) {
+				image(player2, 770,373);
 			}
 			
 			
@@ -206,23 +237,45 @@ public class Main extends PApplet implements OnMessageListener{
 			//pantalla de juego
 			image(pantJuego,0,0);
 			
-			
+			//pintar jugador 1
 			if(j1pig==true) {
-				cerdito.pintar();
+				cerdito1.pintar();
 			}
 			if(j1chic==true) {
-				pollito.pintar();
+				pollito1.pintar();
 			}
 			if(j1elef==true) {
-				elefantico.pintar();
+				elefantico1.pintar();
 			}
+			
+			
+			//pintar jugador 2
+			if(j2pig==true) {
+				cerdito2.pintar();
+			}
+			if(j2chic==true) {
+				pollito2.pintar();
+			}
+			if(j2elef==true) {
+				elefantico2.pintar();
+			}
+			
+			fill(21,118,147);
+			textSize(15);
+			textAlign(CENTER);
+			text(gameTime, 572,43);
+			
+			
 			
 			/*elefantico.pintarBalas();
 			cerdito.pintarBalas();
 			pollito.pintarBalas();*/
 			
 			
-			image(pasto,0,365);
+			image(pasto,0,385);
+			if(gameTime == 0) {
+				pantalla = 5;
+			}
 			break;
 		case 5:
 			//pantalla ganador-perdedor
@@ -304,10 +357,15 @@ public class Main extends PApplet implements OnMessageListener{
 		case 1:
 			//pantalla controles
 			
+			
+			//debe de haber 2 controles conectados
 			//boton jugar
 			if(mouseX > 930 && mouseX < 1030 && mouseY > 10 && mouseY < 53) {
-				pantalla = 0;
+				if(players == 1) {
+					pantalla = 0;
+				}
 			}
+			
 			break;
 		case 2:
 			//pantalla instrucciones
@@ -333,11 +391,20 @@ public class Main extends PApplet implements OnMessageListener{
 			if(mouseX > 20 && mouseX < 120 && mouseY > 10 && mouseY < 53) {
 				pantalla = 0;
 			}
-			
 			//boton jugar
 			if(mouseX > 930 && mouseX < 1030 && mouseY > 10 && mouseY < 53) {
-				pantalla = 4;
+				
+				//tiene que haber por lo menos 1 personaje seleccionado por juagador
+				if( j1pig == true || j1elef == true || j1chic == true ||
+						j2pig == true || j2elef == true || j2chic == true ) {
+							
+							pantalla = 4;
+							tcpJ1.enviarMensaje("play");
+				}
 			}
+			
+			
+			
 			break;
 		case 5:
 			//pantalla ganador-perdedor
@@ -351,49 +418,80 @@ public class Main extends PApplet implements OnMessageListener{
 	public void cuandoLlegueElMensaje(String msg) {
 		// TODO Auto-generated method stub
 		
-		System.out.println("llego un mensaje:  "+msg);
 		
 		switch(pantalla) {
 		case 1:
 			//controles
 			if(msg.contains("Jugador1")) {
 				j1 = msg;
+				players += 1;
 			}
 			if(msg.contains("Jugador2")) {
 				j2 = msg;
+				players += 1;
 			}
 			break;
 		case 3:
 			//seleccion personajes
 			
+			String[] mensajeR = msg.split("_");
+			
+			String jugador = mensajeR[0];
+			String mensaje = mensajeR[1];
 			
 			Gson gson = new Gson();
-			CoorAnimal coord = gson.fromJson(msg, CoorAnimal.class);
+			CoorAnimal coord = gson.fromJson(mensaje, CoorAnimal.class);
 			String tipo = coord.getType();
 			System.out.println(tipo);
 			
-			switch(tipo) {
+			
+			//si la seleccion es del jugador 1
+			if(jugador.contains("Jugador1")) {
+				switch(tipo) {
 				case "pig":
-					cerdito = new Pig(coord.getPosx(), coord.getPosy(),this);
+					cerdito1 = new Pig(coord.getPosx(), coord.getPosy(),this);
 					j1pig = true;
 					j1elef = false;
 					j1chic = false;
 					break;
 				case "chicken":
-					pollito = new Chicken(coord.getPosx(), coord.getPosy(),this);
+					pollito1 = new Chicken(coord.getPosx(), coord.getPosy(),this);
 					j1pig = false;
 					j1elef = false;
 					j1chic = true;
 					break;
 				case "elephant":
-					elefantico = new Elephant(coord.getPosx(), coord.getPosy(),this);
+					elefantico1 = new Elephant(coord.getPosx(), coord.getPosy(),this);
 					j1pig = false;
 					j1elef = true;
 					j1chic = false;
 					break;
-			
 				}
+			}
 			
+			//si la seleccion es del jugador 2
+			if(jugador.contains("Jugador2")) {
+				switch(tipo) {
+				case "pig":
+					cerdito2 = new Pig(coord.getPosx(), coord.getPosy(),this);
+					j2pig = true;
+					j2elef = false;
+					j2chic = false;
+					break;
+				case "chicken":
+					pollito2 = new Chicken(coord.getPosx(), coord.getPosy(),this);
+					j2pig = false;
+					j2elef = false;
+					j2chic = true;
+					break;
+				case "elephant":
+					elefantico2 = new Elephant(coord.getPosx(), coord.getPosy(),this);
+					j2pig = false;
+					j2elef = true;
+					j2chic = false;
+					break;
+				}
+			}
 			
 			break;
 		}
