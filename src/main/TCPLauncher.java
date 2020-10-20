@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 public class TCPLauncher extends Thread{
 	
+	String message;
+	
 	//constructor privado
 	private TCPLauncher(){}
 	
@@ -55,8 +57,12 @@ public class TCPLauncher extends Thread{
 			session.setObserver(observer);
 			session.start();
 			
+			session.enviarMensaje(message);
+			 
 			sesiones.add(session);
+			
 			System.out.println("cliente conectado");
+			
 			}
 			
 		} catch (IOException e) {
@@ -65,6 +71,15 @@ public class TCPLauncher extends Thread{
 		}
 		
     }
+    
+    public void enviar(String message) {
+    	this.message = message;
+    }
+    
+    
+    
+    
+    
     
     
 	public ServerSocket getServer() {

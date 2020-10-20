@@ -9,7 +9,7 @@ import model.Pig;
 import processing.core.PApplet;
 import processing.core.PImage;
 
-public class Main extends PApplet {
+public class Main extends PApplet implements OnMessageListener{
 	
 	int pantalla;
 	PImage pantUno, prim, primP, pantInicio, pantPlayer, pantControl, pantInstru, pantJuego, pantGanador, jugar, jugarP,
@@ -41,6 +41,10 @@ public class Main extends PApplet {
 		
 		launcher = TCPLauncher.getInstance();
 		launcher.setObserver(this);
+		
+		if(pantalla == 3) {
+			//launcher.enviar("escoger");
+		}
 		
 		//saber cual es mi ip para colocarla en el socket del cliente
 		 try {
@@ -294,10 +298,12 @@ public class Main extends PApplet {
 		
 	}
 
-	public void mensajeLlegando(Session session, String line) {
-		System.out.println(line);
+	@Override
+	public void cuandoLlegueElMensaje(String msg) {
+		// TODO Auto-generated method stub
 		
 	}
-	
+
+
 
 }

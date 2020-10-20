@@ -18,6 +18,10 @@ public class Session extends Thread{
 	private Socket socket;
 	private Main observer;
 	
+	public void setObserver(Main observer) {
+		this.observer = observer;
+	}
+	
 	public Session (Socket socket) {
 		this.socket = socket;
 		this.id = UUID.randomUUID().toString();
@@ -39,7 +43,7 @@ public class Session extends Thread{
 				String line = reader.readLine();
 				System.out.println(line);
 				 
-				observer.mensajeLlegando(this, line);
+				observer.cuandoLlegueElMensaje(line);
 			}
 			
 			
@@ -65,9 +69,6 @@ public class Session extends Thread{
 			).start();
 		}
 
-	public void setObserver(Main observer) {
-		this.observer = observer;
-	}
 	
 	public String getID() {
 		return this.id;
