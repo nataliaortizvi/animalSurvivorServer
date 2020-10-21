@@ -30,8 +30,7 @@ public class Main extends PApplet implements OnMessageListener{
 	private TCPSingletonJ1 tcpJ1;
 	private TCPSingletonJ2 tcpJ2;
 	
-	private float xJ1, yJ1, 
-	              xJ2, yJ2;
+	private float xJ1=50, yJ1=350; // xJ2=50, yJ2=350;
 	
 	
 	//private Boolean j1pig = false;
@@ -113,11 +112,7 @@ public class Main extends PApplet implements OnMessageListener{
 		pasto = loadImage("img/pasto.png");
 		player1 = loadImage("img/jugador1.png");
 		player2 = loadImage("img/jugador2.png");
-		
-		xJ1 = 50;
-		yJ2 = 350;
-		
-		
+	
 		
 		
 	}
@@ -245,6 +240,7 @@ public class Main extends PApplet implements OnMessageListener{
 			//pantalla de juego
 			image(pantJuego,0,0);
 			
+			
 			//pintar jugador 1
 			if(j1pig==true) {
 				cerdito1.pintar();
@@ -256,6 +252,7 @@ public class Main extends PApplet implements OnMessageListener{
 				elefantico1.pintar();
 			}
 			
+			System.out.println(cerdito1.getPosx());
 			
 			//pintar jugador 2
 			if(j2pig==true) {
@@ -457,6 +454,7 @@ public class Main extends PApplet implements OnMessageListener{
 			if(jugador.contains("Jugador1")) {
 				switch(tipo) {
 				case "pig":
+					cerdito1 = new Pig(xJ1, yJ1, this);
 		
 					j1pig = true;
 					j1elef = false;
@@ -465,6 +463,8 @@ public class Main extends PApplet implements OnMessageListener{
 					break;
 					
 				case "chicken":
+					pollito1 = new Chicken(xJ1, yJ1,this);
+					
 					j1pig = false;
 					j1elef = false;
 					j1chic = true;
@@ -472,6 +472,8 @@ public class Main extends PApplet implements OnMessageListener{
 					break;
 					
 				case "elephant":
+					elefantico1 = new Elephant(xJ1, yJ1,this);
+					
 					j1pig = false;
 					j1elef = true;
 					j1chic = false;
@@ -524,21 +526,10 @@ public class Main extends PApplet implements OnMessageListener{
 			
 			if (jugadors.contains("Jugador1")) {
 				//moverJ1 
-				xJ1 = coords.getPosx();
-				yJ1 = coords.getPosy();
+				cerdito1.setPosx(coords.getPosx());
+				cerdito1.setPosy(coords.getPosy());
 				
-					if (j1pig == true) {
-						cerdito1 = new Pig(xJ1, yJ1, this);
-					}
-					
-					if (j1chic) {
-						pollito1 = new Chicken(xJ1, yJ1,this);
-					}
-					
-					if (j1elef) {
-						elefantico1 = new Elephant(xJ1, yJ1,this);
-					}
-			
+				System.out.println("laexxxxx"+xJ1);
 			}
 			
 			if (jugadors.contains("Jugador2")) {
