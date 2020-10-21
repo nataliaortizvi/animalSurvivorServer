@@ -7,7 +7,7 @@ public class Water extends Bullet{
 	
 	PImage water;
 
-	public Water(int px, int py, int dire, PApplet app) {
+	public Water(float px, float py, int dire, PApplet app) {
 		super(px, py, dire, app);
 		this.tipo = "water";
 		// TODO Auto-generated constructor stub

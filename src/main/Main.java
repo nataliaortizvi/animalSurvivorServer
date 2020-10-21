@@ -9,6 +9,7 @@ import clasesEclipse.Chicken;
 import clasesEclipse.Elephant;
 import clasesEclipse.Pig;
 import modelo.CoorAnimal;
+import modelo.NameAnimal;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -23,11 +24,15 @@ public class Main extends PApplet implements OnMessageListener{
 	Chicken pollito1, pollito2;
 	Elephant elefantico1, elefantico2;
 	
-	Boolean j1pig = false, j1elef = false, j1chic = false, 
-			j2pig = false, j2elef = false, j2chic = false;
+	Boolean j1pig = false, j1elef = false, j1chic = false, j1live = false, 
+			j2pig = false, j2elef = false, j2chic = false, j2live = false;;
 
 	private TCPSingletonJ1 tcpJ1;
 	private TCPSingletonJ2 tcpJ2;
+	
+	private float xJ1, yJ1, 
+	              xJ2, yJ2;
+	
 	
 	//private Boolean j1pig = false;
 
@@ -108,6 +113,9 @@ public class Main extends PApplet implements OnMessageListener{
 		pasto = loadImage("img/pasto.png");
 		player1 = loadImage("img/jugador1.png");
 		player2 = loadImage("img/jugador2.png");
+		
+		xJ1 = 50;
+		yJ2 = 350;
 		
 		
 		
@@ -440,8 +448,8 @@ public class Main extends PApplet implements OnMessageListener{
 			String mensaje = mensajeR[1];
 			
 			Gson gson = new Gson();
-			CoorAnimal coord = gson.fromJson(mensaje, CoorAnimal.class);
-			String tipo = coord.getType();
+			NameAnimal name = gson.fromJson(mensaje, NameAnimal.class);
+			String tipo = name.getName();
 			System.out.println(tipo);
 			
 			
@@ -449,55 +457,97 @@ public class Main extends PApplet implements OnMessageListener{
 			if(jugador.contains("Jugador1")) {
 				switch(tipo) {
 				case "pig":
-					cerdito1 = new Pig(coord.getPosx(), coord.getPosy(),this);
+		
 					j1pig = true;
 					j1elef = false;
 					j1chic = false;
+					j1live = true;
 					break;
+					
 				case "chicken":
-					pollito1 = new Chicken(coord.getPosx(), coord.getPosy(),this);
 					j1pig = false;
 					j1elef = false;
 					j1chic = true;
+					j1live = true;
 					break;
+					
 				case "elephant":
-					elefantico1 = new Elephant(coord.getPosx(), coord.getPosy(),this);
 					j1pig = false;
 					j1elef = true;
 					j1chic = false;
+					j1live = true;
 					break;
 				}
 			}
 			
 			//si la seleccion es del jugador 2
-			if(jugador.contains("Jugador2")) {
+			/*if(jugador.contains("Jugador2")) {
 				switch(tipo) {
 				case "pig":
 					cerdito2 = new Pig(coord.getPosx(), coord.getPosy(),this);
 					j2pig = true;
 					j2elef = false;
 					j2chic = false;
+					j2live = true;
 					break;
 				case "chicken":
-					pollito2 = new Chicken(coord.getPosx(), coord.getPosy(),this);
+					pollito2 = new Chicken(xJ1, yJ1, this);
 					j2pig = false;
 					j2elef = false;
 					j2chic = true;
+					j2live = true;
 					break;
 				case "elephant":
 					elefantico2 = new Elephant(coord.getPosx(), coord.getPosy(),this);
 					j2pig = false;
 					j2elef = true;
 					j2chic = false;
+					j2live = true;
 					break;
 				}
-			}
+			}*/
 			
 			break;
-		}
-		
+		case 4:
+			//MOVIMIENTO JUGADOR (PANTALLA DE JUEGO)
+			
+            String[] mensajeRs = msg.split("_");
+			
+			String jugadors = mensajeRs[0];
+			String mensajes = mensajeRs[1];
+			
+			Gson gsons = new Gson();
+			CoorAnimal coords = gsons.fromJson(mensajes, CoorAnimal.class);
+			
+			
+			
+			
+			if (jugadors.contains("Jugador1")) {
+				//moverJ1 
+				xJ1 = coords.getPosx();
+				yJ1 = coords.getPosy();
+				
+					if (j1pig == true) {
+						cerdito1 = new Pig(xJ1, yJ1, this);
+					}
+					
+					if (j1chic) {
+						pollito1 = new Chicken(xJ1, yJ1,this);
+					}
+					
+					if (j1elef) {
+						elefantico1 = new Elephant(xJ1, yJ1,this);
+					}
+			
+			}
+			
+			if (jugadors.contains("Jugador2")) {
+				//moverJ2
+			}
+			
+		break;
 	}
-
-
+	}
+	
 
 }

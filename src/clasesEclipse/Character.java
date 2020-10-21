@@ -7,13 +7,14 @@ import processing.core.PApplet;
 public abstract class Character {
 	
 	//atributos
-	protected int posx, posy, vel, dir, vida;
+	protected float posx, posy;
+	protected int vel, dir, vida;
 	protected String type;
 	protected PApplet app;
 	protected ArrayList <Bullet> balas;
 	
 	//constructor
-	public Character(int posx, int posy, PApplet app) {
+	public Character(float posx, float posy, PApplet app) {
 		this.posx = posx;
 		this.posy = posy;
 		this.vel = 2;
@@ -41,19 +42,19 @@ public abstract class Character {
 	public abstract void pintar();
 	
 	//getters y setters
-	public int getPosx() {
+	public float getPosx() {
 		return posx;
 	}
 
-	public void setPosx(int posx) {
+	public void setPosx(float posx) {
 		this.posx = posx;
 	}
 
-	public int getPosy() {
+	public float getPosy() {
 		return posy;
 	}
 
-	public void setPosy(int posy) {
+	public void setPosy(float posy) {
 		this.posy = posy;
 	}
 

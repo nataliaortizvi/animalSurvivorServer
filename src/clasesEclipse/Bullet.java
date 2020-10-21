@@ -5,14 +5,15 @@ import processing.core.PApplet;
 public abstract class Bullet {
 	
 	//atributos
-	protected int px, py, velo, dire;
+	protected float px, py;
+	protected int velo, dire;
 	protected String tipo;
 	protected PApplet app;
 	
 	//constructor
-	public Bullet (int px, int py, int dire, PApplet app) {
-		this.px = px;
-		this.py = py;
+	public Bullet (float posx, float posy, int dire, PApplet app) {
+		this.px = posx;
+		this.py = posy;
 		this.dire = dire;
 		this.velo = 5;
 		this.app = app;
@@ -36,19 +37,19 @@ public abstract class Bullet {
 	
 	
 	//getters y setters
-	public int getPx() {
+	public float getPx() {
 		return px;
 	}
 
-	public void setPx(int px) {
+	public void setPx(float px) {
 		this.px = px;
 	}
 
-	public int getPy() {
+	public float getPy() {
 		return py;
 	}
 
-	public void setPy(int py) {
+	public void setPy(float py) {
 		this.py = py;
 	}
 

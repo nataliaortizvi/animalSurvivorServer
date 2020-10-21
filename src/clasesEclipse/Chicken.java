@@ -5,15 +5,16 @@ import processing.core.PImage;
 
 public class Chicken extends Character{
 	
-	PImage polloDer, polloIzq;
+	PImage polloDer, polloIzq, gallolife;
 	String type = "chicken";
 
 	//constructor
-	public Chicken(int posx, int posy, PApplet app) {
+	public Chicken(float posx, float posy, PApplet app) {
 		super(posx, posy, app);
 		
 		polloDer = app.loadImage("img/galloDer.png");
 		polloIzq = app.loadImage("img/galloIzq.png");
+		gallolife = app.loadImage("img/gallolife.png");
 		
 	}
 	

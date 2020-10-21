@@ -7,8 +7,8 @@ public class Eggs extends Bullet{
 	
 	PImage egg;
 
-	public Eggs(int px, int py, int dire, PApplet app) {
-		super(px, py, dire, app);
+	public Eggs(float posx, float posy, int dire, PApplet app) {
+		super(posx, posy, dire, app);
 		this.tipo = "eggs";
 		// TODO Auto-generated constructor stub
 		

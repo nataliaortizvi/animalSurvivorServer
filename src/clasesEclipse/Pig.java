@@ -5,15 +5,16 @@ import processing.core.PImage;
 
 public class Pig extends Character{
 	
-	PImage cerdoDer, cerdoIzq;
+	PImage cerdoDer, cerdoIzq, piglife; 
 	String type = "pig";
 
 	//constructor
-	public Pig(int posx, int posy, PApplet app) {
+	public Pig(float posx, float posy, PApplet app) {
 		super(posx, posy, app);
 		
 		cerdoDer = app.loadImage("img/cerdoDer.png");
 		cerdoIzq = app.loadImage("img/cerdoIzq.png");
+		piglife = app.loadImage("img/piglife.png");
 		
 	}
 
@@ -30,6 +31,8 @@ public class Pig extends Character{
 		if(dir == 2) {
 			app.image(cerdoIzq, posx, posy,80,80);
 		}
+		
+		//app.image(piglife, 12,19);
 		
 	}
 

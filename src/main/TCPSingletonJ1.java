@@ -58,6 +58,7 @@ public class TCPSingletonJ1 extends Thread {
 			//Recepcion
 			while(true) {
 				String lastMessage = reader.readLine();
+				
 
 				observer.cuandoLlegueElMensaje("Jugador1 _"+lastMessage);
 			}

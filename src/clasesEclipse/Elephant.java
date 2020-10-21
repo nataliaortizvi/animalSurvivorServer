@@ -5,16 +5,17 @@ import processing.core.PImage;
 
 public class Elephant extends Character{
 	
-	PImage elefanteDer, elefanteIzq;
+	PImage elefanteDer, elefanteIzq, elephantlife;
 	String type = "elephant";
 
 	
 	//constructor
-	public Elephant(int posx, int posy, PApplet app) {
+	public Elephant(float posx, float posy, PApplet app) {
 		super(posx, posy, app);
 		
 		elefanteDer = app.loadImage("img/elefanteDer.png");
 		elefanteIzq = app.loadImage("img/elefanteIzq.png");
+		elephantlife =app.loadImage("img/elephanlife.png");
 	}
 
 	
@@ -32,6 +33,7 @@ public class Elephant extends Character{
 			app.image(elefanteIzq, posx, posy,80,90);
 		}
 		
+		app.image(elephantlife, 12, 19);
 	}
 
 	@Override
