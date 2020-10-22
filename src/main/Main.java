@@ -24,12 +24,16 @@ public class Main extends PApplet implements OnMessageListener{
 	Chicken pollito1, pollito2;
 	Elephant elefantico1, elefantico2;
 	
+	
+	
 	Boolean j1pig = false, j1elef = false, j1chic = false, j1live = false, 
 			j2pig = false, j2elef = false, j2chic = false, j2live = false, 
 			cayendo = false;
 
 	private TCPSingletonJ1 tcpJ1;
 	private TCPSingletonJ2 tcpJ2;
+	
+
 	
 	private float xJ1=50, yJ1=350, xJ2=1000, yJ2=350;
 	
@@ -111,7 +115,24 @@ public class Main extends PApplet implements OnMessageListener{
 		player2 = loadImage("img/jugador2.png");
 	
 		
-		
+		for (int i=0; i<width; i++) {
+		    for (int j=0; j<height; j++) {
+		    	int c = get(i, j);
+		    	
+		    	if ( c == color(108, 75, 34)) {
+		    		c = color (255,255,255);
+		    		
+		    		
+		    	} else {
+	
+		    		c = color(0);
+		    		stroke (c);
+		    		point (i, j);
+		    		
+		    	}
+		    }		
+		}
+	
 	}
 	
 	public void draw() {
@@ -123,6 +144,7 @@ public class Main extends PApplet implements OnMessageListener{
 			//pantalla welcome
 			image(pantUno,0,0);
 			image(prim, 395,350);
+			
 			
 			if(mouseX > 395 && mouseX < 650 && mouseY > 350 && mouseY < 400) {
 				image(primP, 395,350);
@@ -450,6 +472,7 @@ public class Main extends PApplet implements OnMessageListener{
 			
 			//si la seleccion es del jugador 1
 			if(jugador.contains("Jugador1")) {
+				
 				switch(tipo) {
 				case "pig":
 					cerdito1 = new Pig(xJ1, yJ1, this);
@@ -524,28 +547,54 @@ public class Main extends PApplet implements OnMessageListener{
 			//si se mueve el jugador 1
 			if (jugadors.contains("Jugador1")) {
 				//moverJ1 
-				cerdito1.setPosx(coords.getPosx());
-				cerdito1.setPosy(coords.getPosy());
+				if (j1pig == true) {
+					
+					if (pantJuego.get((int) cerdito1.getPosx(), (int) cerdito1.getPosy()) != color(108, 75, 34)) {
+						
+							
+							cerdito1.setPosx(coords.getPosx());
+							cerdito1.setPosy(coords.getPosy());
+							
+						
+					}
+				}
 				
-				pollito1.setPosx(coords.getPosx());
-				pollito1.setPosx(coords.getPosx());
+				if (j1elef == true) {
+					elefantico1.setPosx(coords.getPosx());
+					elefantico1.setPosy(coords.getPosy());
+				}
 				
-				elefantico1.setPosx(coords.getPosx());
-				elefantico1.setPosy(coords.getPosy());
+				if (j1chic == true) {
+					pollito1.setPosx(coords.getPosx());
+					pollito1.setPosx(coords.getPosx());
+				}
+				
+				
+				System.out.println(cerdito1.getPosx());
+				
+				
 				
 			}
 			
 			//si se mueve el jugador 2
 			if (jugadors.contains("Jugador2")) {
 				//moverJ2
-				cerdito2.setPosx(coords.getPosx());
-				cerdito2.setPosy(coords.getPosy());
 				
-				pollito2.setPosx(coords.getPosx());
-				pollito2.setPosx(coords.getPosx());
+				if (j2pig == true) {
+					cerdito2.setPosx(coords.getPosx());
+					cerdito2.setPosy(coords.getPosy());
+				}
 				
-				elefantico2.setPosx(coords.getPosx());
-				elefantico2.setPosy(coords.getPosy());
+				if (j2elef == true) {
+					elefantico2.setPosx(coords.getPosx());
+					elefantico2.setPosy(coords.getPosy());
+				}
+				
+				if (j2chic == true) {
+					pollito2.setPosx(coords.getPosx());
+					pollito2.setPosx(coords.getPosx());
+				}
+				
 			}
 			
 		break;
