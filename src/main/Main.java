@@ -120,12 +120,12 @@ public class Main extends PApplet implements OnMessageListener{
 		    	int c = get(i, j);
 		    	
 		    	if ( c == color(108, 75, 34)) {
-		    		c = color (255,255,255);
+		    		c = color (0);
 		    		
 		    		
 		    	} else {
 	
-		    		c = color(0);
+		    		c = color(255,255,255);
 		    		stroke (c);
 		    		point (i, j);
 		    		
@@ -550,7 +550,7 @@ public class Main extends PApplet implements OnMessageListener{
 				
 				if (j1pig == true) {
 					
-					if (pantJuego.get((int) cerdito1.getPosx(), (int) cerdito1.getPosy()) != color(108, 75, 34)) {
+					if (pantJuego.get((int) cerdito1.getPosx(), (int) cerdito1.getPosy()-110) != color(108, 75, 34)) {
 						
 							
 							cerdito1.setPosx(coords.getPosx());
