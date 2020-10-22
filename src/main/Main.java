@@ -9,6 +9,7 @@ import clasesEclipse.Chicken;
 import clasesEclipse.Elephant;
 import clasesEclipse.Pig;
 import modelo.CoorAnimal;
+import modelo.LlegandoBullet;
 import modelo.NameAnimal;
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -263,12 +264,15 @@ public class Main extends PApplet implements OnMessageListener{
 			//pintar jugador 1
 			if(j1pig==true) {
 				cerdito1.pintar();
+				cerdito1.pintarBalas();
 			}
 			if(j1chic==true) {
 				pollito1.pintar();
+				pollito1.pintarBalas();
 			}
 			if(j1elef==true) {
 				elefantico1.pintar();
+				elefantico1.pintarBalas();
 			}
 			
 			
@@ -289,12 +293,6 @@ public class Main extends PApplet implements OnMessageListener{
 			text(gameTime, 572,43);
 			
 			
-	
-			
-			/*elefantico.pintarBalas();
-			cerdito.pintarBalas();
-			pollito.pintarBalas();*/
-			
 			
 			image(pasto,0,385);
 			if(gameTime == 0) {
@@ -312,43 +310,6 @@ public class Main extends PApplet implements OnMessageListener{
 		text("x:"+mouseX+"y:"+mouseY, mouseX, mouseY);
 		
 	}
-	
-	/*public void keyPressed() {
-		if(key == 'l' || key == 'L') {
-			cerdito.agregarBalas();
-		}
-		if(key == 'a' || key == 'A') {
-			cerdito.setDir(2);
-		}
-		if(key == 'd' || key == 'D') {
-			cerdito.setDir(1);
-		}
-		
-		
-		
-		if(key == 'k' || key == 'K') {
-			pollito.agregarBalas();
-		}
-		if(keyCode == LEFT) {
-			pollito.setDir(2);
-		}
-		if(keyCode == RIGHT) {
-			pollito.setDir(1);
-		}
-		
-
-
-		if(key == 'm' || key == 'M') {
-			elefantico.agregarBalas();
-		}
-		if(keyCode == LEFT) {
-			elefantico.setDir(2);
-		}
-		if(keyCode == RIGHT) {
-			elefantico.setDir(1);
-		}
-		
-	}*/
 	
 	public void mousePressed(){
 		switch(pantalla) {
@@ -542,26 +503,33 @@ public class Main extends PApplet implements OnMessageListener{
 			Gson gsons = new Gson();
 			CoorAnimal coords = gsons.fromJson(mensajes, CoorAnimal.class);
 			
+			Gson gsond = new Gson();
+			LlegandoBullet shoots = gsond.fromJson(mensajes, LlegandoBullet.class);
 			
+			System.out.println(shoots.getLlega());
 			
 			//si se mueve el jugador 1
 			if (jugadors.contains("Jugador1")) {
 				//moverJ1 
 				
+				
 				if (j1pig == true) {
 					
 					if (pantJuego.get((int) cerdito1.getPosx(), (int) cerdito1.getPosy()-110) != color(108, 75, 34)) {
 						
+
+						cerdito1.setPosx(coords.getPosx());
+						cerdito1.setPosy(coords.getPosy());
+						
+						if(coords.getType().contains("left")) {
+							cerdito1.setDir(2);
+						}
+						if(coords.getType().contains("right")) {
+							cerdito1.setDir(1);
+						}
+						
 							
-							cerdito1.setPosx(coords.getPosx());
-							cerdito1.setPosy(coords.getPosy());
-							
-							if(coords.getType().contains("left")) {
-								cerdito1.setDir(2);
-							}
-							if(coords.getType().contains("right")) {
-								cerdito1.setDir(1);
-							}
+						
 					}
 				}
 				
@@ -575,11 +543,13 @@ public class Main extends PApplet implements OnMessageListener{
 					if(coords.getType().contains("right")) {
 						elefantico1.setDir(1);
 					}
-				}
+				
+					}
+				
 				
 				if (j1chic == true) {
 					pollito1.setPosx(coords.getPosx());
-					pollito1.setPosx(coords.getPosx());
+					pollito1.setPosy(coords.getPosy());
 					
 					if(coords.getType().contains("left")) {
 						pollito1.setDir(2);
@@ -587,11 +557,8 @@ public class Main extends PApplet implements OnMessageListener{
 					if(coords.getType().contains("right")) {
 						pollito1.setDir(1);
 					}
+					
 				}
-				
-				
-				System.out.println(cerdito1.getPosx());
-				
 				
 				
 			}
