@@ -38,6 +38,12 @@ public abstract class Character {
 		}
 	}
 	
+	public void quitarBala() {
+		for(int i=0; i<balas.size(); i++) {
+		balas.remove(i);
+		}
+	}
+	
 	public int getVida() {
 		return vida;
 	}

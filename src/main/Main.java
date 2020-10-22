@@ -5,6 +5,7 @@ import java.net.UnknownHostException;
 
 import com.google.gson.Gson;
 
+import clasesEclipse.Bullet;
 import clasesEclipse.Chicken;
 import clasesEclipse.Elephant;
 import clasesEclipse.Pig;
@@ -15,7 +16,7 @@ import processing.core.PImage;
 
 public class Main extends PApplet implements OnMessageListener{
 	
-	int pantalla, gameTime= 120, players = 0;
+	int pantalla, gameTime= 120, players = 0, danno = 5;
 	PImage pantUno, prim, primP, pantInicio, pantPlayer, pantControl, pantInstru, pantJuego, pantGanador, jugar, jugarP,
 	instru, instruP, contro, controP, pasto, atras, atrasP, jugarPP, jugarPPP, player1, player2,
 	vidaPig, vidaElef, vidaPollo;
@@ -36,7 +37,7 @@ public class Main extends PApplet implements OnMessageListener{
 	
 
 	
-	private float xJ1=50, yJ1=350, xJ2=980, yJ2=350;
+	private float xJ1=50, yJ1=350, xJ2=960, yJ2=350;
 	
 
 	public static void main(String[] args) {
@@ -273,6 +274,8 @@ public class Main extends PApplet implements OnMessageListener{
 				fill(70,355,70);
 				noStroke();
 				rect(51,(float) 27.5,cerdito1.getVida(),10);
+				
+			
 			}
 			if(j1chic==true) {
 				pollito1.pintar();
@@ -281,6 +284,8 @@ public class Main extends PApplet implements OnMessageListener{
 				fill(70,355,70);
 				noStroke();
 				rect(51,(float) 27.5,pollito1.getVida(),10);
+				
+				
 			}
 			if(j1elef==true) {
 				elefantico1.pintar();
@@ -289,6 +294,8 @@ public class Main extends PApplet implements OnMessageListener{
 				fill(70,355,70);
 				noStroke();
 				rect(51,(float) 27.5,elefantico1.getVida(),10);
+				
+			
 			}
 			
 			
@@ -299,7 +306,11 @@ public class Main extends PApplet implements OnMessageListener{
 				image(vidaPig, 1004,11,40,40);
 				fill(70,355,70);
 				noStroke();
-				rect(900,28,cerdito2.getVida(),10);
+				rect(899,(float) 27.5,93,10);
+				fill(58,89,109);
+				rect(899,(float) 27.5,cerdito2.getVida()-93,10);
+				
+			
 			}
 			if(j2chic==true) {
 				pollito2.pintar();
@@ -307,7 +318,11 @@ public class Main extends PApplet implements OnMessageListener{
 				image(vidaPollo, 1004,11,40,40);
 				fill(70,355,70);
 				noStroke();
-				rect(900,28,cerdito2.getVida(),10);
+				rect(899,(float) 27.5,93,10);
+				fill(58,89,109);
+				rect(899,(float) 27.5,pollito2.getVida()-93,10);
+				
+				
 				
 			}
 			if(j2elef==true) {
@@ -316,7 +331,11 @@ public class Main extends PApplet implements OnMessageListener{
 				image(vidaElef, 1004,11,40,40);
 				fill(70,355,70);
 				noStroke();
-				rect(900,28,cerdito2.getVida(),10);
+				rect(899,(float) 27.5,93,10);
+				fill(58,89,109);
+				rect(899,(float) 27.5,elefantico2.getVida()-93,10);
+				
+				
 			}
 			
 			fill(21,118,147);
@@ -380,7 +399,7 @@ public class Main extends PApplet implements OnMessageListener{
 			//debe de haber 2 controles conectados
 			//boton jugar
 			if(mouseX > 930 && mouseX < 1030 && mouseY > 10 && mouseY < 53) {
-				if(players == 1) {
+				if(players >= 1) {
 					pantalla = 0;
 				}
 			}
@@ -504,24 +523,24 @@ public class Main extends PApplet implements OnMessageListener{
 				switch(tipo) {
 				case "pig":
 					cerdito2 = new Pig(xJ2, yJ2,this);
+					cerdito2.setDir(2);
 					j2pig = true;
 					j2elef = false;
 					j2chic = false;
-					j2live = true;
 					break;
 				case "chicken":
 					pollito2 = new Chicken(xJ2, yJ2, this);
+					pollito2.setDir(2);
 					j2pig = false;
 					j2elef = false;
 					j2chic = true;
-					j2live = true;
 					break;
 				case "elephant":
 					elefantico2 = new Elephant(xJ2, yJ2,this);
+					elefantico2.setDir(2);
 					j2pig = false;
 					j2elef = true;
 					j2chic = false;
-					j2live = true;
 					break;
 				}
 			}
@@ -547,56 +566,149 @@ public class Main extends PApplet implements OnMessageListener{
 				
 				if (j1pig == true) {
 					
+					//direccion
+					if(coords.getType().contains("left")) {
+						cerdito1.setDir(2);
+					}
+					if(coords.getType().contains("right")) {
+						cerdito1.setDir(1);
+					}
+					
+					//disparo
+					if(coords.getType().contains("paw")) {
+						cerdito1.agregarBalas();
+					}
+					
+					//daño de las balas al oponente y desaparicion de balas cuando le caen al jugador opuesto
+					for(int i = 0; i < cerdito1.getBalas().size(); i++) {
+						Bullet bala = cerdito1.getBalas().get(i);
+						
+						if(j2pig) {
+							if(dist(bala.getPx(), bala.getPy(), cerdito2.getPosx(), cerdito2.getPosy()) < 50) {
+								cerdito2.setVida(cerdito2.getVida() + danno);
+								cerdito1.quitarBala();
+							}
+						}
+						
+						if(j2chic) {
+						if(dist(bala.getPx(), bala.getPy(), pollito2.getPosx(), pollito2.getPosy()) < 50) {
+							pollito2.setVida(pollito2.getVida() + danno);
+							cerdito1.quitarBala();
+							}
+						}
+						
+						if(j2elef) {
+						if(dist(bala.getPx(), bala.getPy(), elefantico2.getPosx(), elefantico2.getPosy()) < 50) {
+							elefantico2.setVida(elefantico2.getVida() + danno);
+							cerdito1.quitarBala();
+							}
+						}
+						
+					}
+					
 					if (pantJuego.get((int) cerdito1.getPosx(), (int) cerdito1.getPosy()-77) != color(108, 75, 34)) {
 						
-
+						//movimiento
 						cerdito1.setPosx(coords.getPosx());
 						cerdito1.setPosy(coords.getPosy());
-						
-						if(coords.getType().contains("left")) {
-							cerdito1.setDir(2);
-						}
-						if(coords.getType().contains("right")) {
-							cerdito1.setDir(1);
-						}
-						if(coords.getType().contains("paw")) {
-							cerdito1.agregarBalas();
-						}
-						
-							
-						
+					
 					}
 				}
 				
 				if (j1elef == true) {
+					//movimiento
 					elefantico1.setPosx(coords.getPosx());
 					elefantico1.setPosy(coords.getPosy());
 					
+					//direccion
 					if(coords.getType().contains("left")) {
 						elefantico1.setDir(2);
 					}
 					if(coords.getType().contains("right")) {
 						elefantico1.setDir(1);
 					}
+					
+					//disparo
 					if(coords.getType().contains("paw")) {
 						elefantico1.agregarBalas();
 					}
+					
+					//daño de las balas al oponente y desaparicion de balas cuando le caen al jugador opuesto
+					for(int i = 0; i < elefantico1.getBalas().size(); i++) {
+						Bullet bala = elefantico1.getBalas().get(i);
+						
+						if(j2pig) {
+						if(dist(bala.getPx(), bala.getPy(), cerdito2.getPosx(), cerdito2.getPosy()) < 50) {
+							cerdito2.setVida(cerdito2.getVida() + danno);
+							elefantico1.quitarBala();
+						}
+						}
+						
+						if(j2chic) {
+						if(dist(bala.getPx(), bala.getPy(), pollito2.getPosx(), pollito2.getPosy()) < 50) {
+							pollito2.setVida(pollito2.getVida() + danno);
+							elefantico1.quitarBala();
+						}
+						}
+						
+						if(j2elef) {
+						if(dist(bala.getPx(), bala.getPy(), elefantico2.getPosx(), elefantico2.getPosy()) < 50) {
+							elefantico2.setVida(elefantico2.getVida() + danno);
+							elefantico1.quitarBala();
+						}
+						}
+						
+					}
+					
 				
 					}
 				
 				
 				if (j1chic == true) {
+					
+					//movimiento
 					pollito1.setPosx(coords.getPosx());
 					pollito1.setPosy(coords.getPosy());
 					
+					
+					//direccion
 					if(coords.getType().contains("left")) {
 						pollito1.setDir(2);
 					}
 					if(coords.getType().contains("right")) {
 						pollito1.setDir(1);
 					}
+					
+					//disparo
 					if(coords.getType().contains("paw")) {
 						pollito1.agregarBalas();
+					}
+					
+					//daño de las balas al oponente y desaparicion de balas cuando le caen al jugador opuesto
+					for(int i = 0; i < pollito1.getBalas().size(); i++) {
+						Bullet bala = pollito1.getBalas().get(i);
+						
+						if(j2pig) {
+						if(dist(bala.getPx(), bala.getPy(), cerdito2.getPosx(), cerdito2.getPosy()) < 50) {
+							cerdito2.setVida(cerdito2.getVida() + danno);
+							pollito1.quitarBala();
+						}
+						}
+						
+						if(j2chic) {
+						if(dist(bala.getPx(), bala.getPy(), pollito2.getPosx(), pollito2.getPosy()) < 50) {
+							pollito2.setVida(pollito2.getVida() + danno);
+							pollito1.quitarBala();
+						}
+						}
+						
+						if(j2elef) {
+						if(dist(bala.getPx(), bala.getPy(), elefantico2.getPosx(), elefantico2.getPosy()) < 50) {
+							elefantico2.setVida(elefantico2.getVida() + danno);
+							pollito1.quitarBala();
+						}
+						}
+						
 					}
 					
 				}
@@ -609,48 +721,146 @@ public class Main extends PApplet implements OnMessageListener{
 				//moverJ2
 				
 				if (j2pig == true) {
+					
+					//movimiento
 					cerdito2.setPosx(coords.getPosx());
 					cerdito2.setPosy(coords.getPosy());
 					
+					//direccion
 					if(coords.getType().contains("left")) {
 						cerdito2.setDir(2);
 					}
 					if(coords.getType().contains("right")) {
 						cerdito2.setDir(1);
 					}
+					
+					//disparo
 					if(coords.getType().contains("paw")) {
 						cerdito2.agregarBalas();
+					}
+					
+					//daño de las balas al oponente y desaparicion de balas cuando le caen al jugador opuesto
+					for(int i = 0; i < cerdito2.getBalas().size(); i++) {
+						Bullet bala = cerdito2.getBalas().get(i);
+						
+						if(j1pig) {
+						if(dist(bala.getPx(), bala.getPy(), cerdito1.getPosx(), cerdito1.getPosy()) < 50) {
+							cerdito1.setVida(cerdito2.getVida() - danno);
+							cerdito2.quitarBala();
+						}
+						}
+						
+						if(j1chic) {
+						if(dist(bala.getPx(), bala.getPy(), pollito1.getPosx(), pollito1.getPosy()) < 50) {
+							pollito1.setVida(pollito2.getVida() - danno);
+							cerdito2.quitarBala();
+						}
+						}
+						
+						if(j1elef) {
+						if(dist(bala.getPx(), bala.getPy(), elefantico1.getPosx(), elefantico1.getPosy()) < 50) {
+							elefantico1.setVida(elefantico2.getVida() - danno);
+							cerdito2.quitarBala();
+						}
+						}
+						
 					}
 				}
 				
 				if (j2elef == true) {
+					//movimiento
 					elefantico2.setPosx(coords.getPosx());
 					elefantico2.setPosy(coords.getPosy());
 					
+					System.out.println(elefantico2.getPosy());
+					
+					//direccion
 					if(coords.getType().contains("left")) {
 						elefantico2.setDir(2);
 					}
 					if(coords.getType().contains("right")) {
 						elefantico2.setDir(1);
 					}
+					
+					//disparo
 					if(coords.getType().contains("paw")) {
 						elefantico2.agregarBalas();
 					}
+					
+					//daño de las balas al oponente y desaparicion de balas cuando le caen al jugador opuesto
+					for(int i = 0; i < elefantico2.getBalas().size(); i++) {
+						Bullet bala = elefantico2.getBalas().get(i);
+						
+						if(j1pig) {
+						if(dist(bala.getPx(), bala.getPy(), cerdito1.getPosx(), cerdito1.getPosy()) < 50) {
+							cerdito1.setVida(cerdito1.getVida() - danno);
+							elefantico2.quitarBala();
+						}
+						}
+						
+						if(j1chic) {
+						if(dist(bala.getPx(), bala.getPy(), pollito1.getPosx(), pollito1.getPosy()) < 50) {
+							pollito1.setVida(pollito1.getVida() - danno);
+							elefantico2.quitarBala();
+						}
+						}
+						
+						if(j1elef) {
+						if(dist(bala.getPx(), bala.getPy(), elefantico1.getPosx(), elefantico1.getPosy()) < 50) {
+							elefantico1.setVida(elefantico1.getVida() - danno);
+							elefantico2.quitarBala();
+						}
+						}
+						
+					}
+					
+					
 				}
 				
 				if (j2chic == true) {
+					//movimiento
 					pollito2.setPosx(coords.getPosx());
-					pollito2.setPosx(coords.getPosx());
+					pollito2.setPosy(coords.getPosy());
 					
+					//direccion
 					if(coords.getType().contains("left")) {
 						pollito2.setDir(2);
 					}
 					if(coords.getType().contains("right")) {
 						pollito2.setDir(1);
 					}
+					
+					//disparo
 					if(coords.getType().contains("paw")) {
 						pollito2.agregarBalas();
 					}
+					//daño de las balas al oponente y desaparicion de balas cuando le caen al jugador opuesto
+					for(int i = 0; i < pollito2.getBalas().size(); i++) {
+						Bullet bala = pollito2.getBalas().get(i);
+						
+						if(j1pig) {
+						if(dist(bala.getPx(), bala.getPy(), cerdito1.getPosx(), cerdito1.getPosy()) < 50) {
+							cerdito1.setVida(cerdito1.getVida() - danno);
+							pollito2.quitarBala();
+						}
+						}
+						
+						if(j1chic) {
+						if(dist(bala.getPx(), bala.getPy(), pollito1.getPosx(), pollito1.getPosy()) < 50) {
+							pollito1.setVida(pollito1.getVida() - danno);
+							pollito2.quitarBala();
+						}
+						}
+						
+						if(j1elef) {
+						if(dist(bala.getPx(), bala.getPy(), elefantico1.getPosx(), elefantico1.getPosy()) < 50) {
+							elefantico1.setVida(elefantico1.getVida() - danno);
+							pollito2.quitarBala();
+						}
+						}
+						
+					}
+				
 				}
 				
 			}
