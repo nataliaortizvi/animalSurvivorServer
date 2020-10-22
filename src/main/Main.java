@@ -25,15 +25,14 @@ public class Main extends PApplet implements OnMessageListener{
 	Elephant elefantico1, elefantico2;
 	
 	Boolean j1pig = false, j1elef = false, j1chic = false, j1live = false, 
-			j2pig = false, j2elef = false, j2chic = false, j2live = false;;
+			j2pig = false, j2elef = false, j2chic = false, j2live = false, 
+			cayendo = false;
 
 	private TCPSingletonJ1 tcpJ1;
 	private TCPSingletonJ2 tcpJ2;
 	
 	private float xJ1=50, yJ1=350; // xJ2=50, yJ2=350;
 	
-	
-	//private Boolean j1pig = false;
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -73,8 +72,6 @@ public class Main extends PApplet implements OnMessageListener{
 					}
 				}
 			).start();
-		
-		
 		
 		
 		
@@ -252,7 +249,6 @@ public class Main extends PApplet implements OnMessageListener{
 				elefantico1.pintar();
 			}
 			
-			System.out.println(cerdito1.getPosx());
 			
 			//pintar jugador 2
 			if(j2pig==true) {
@@ -271,6 +267,7 @@ public class Main extends PApplet implements OnMessageListener{
 			text(gameTime, 572,43);
 			
 			
+	
 			
 			/*elefantico.pintarBalas();
 			cerdito.pintarBalas();
@@ -405,6 +402,7 @@ public class Main extends PApplet implements OnMessageListener{
 							
 							pantalla = 4;
 							tcpJ1.enviarMensaje("play");
+							cayendo = true;
 				}
 			}
 			
@@ -529,7 +527,8 @@ public class Main extends PApplet implements OnMessageListener{
 				cerdito1.setPosx(coords.getPosx());
 				cerdito1.setPosy(coords.getPosy());
 				
-				System.out.println("laexxxxx"+xJ1);
+				System.out.println(coords.getPosy());
+				
 			}
 			
 			if (jugadors.contains("Jugador2")) {
