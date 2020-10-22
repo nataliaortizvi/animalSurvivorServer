@@ -547,6 +547,7 @@ public class Main extends PApplet implements OnMessageListener{
 			//si se mueve el jugador 1
 			if (jugadors.contains("Jugador1")) {
 				//moverJ1 
+				
 				if (j1pig == true) {
 					
 					if (pantJuego.get((int) cerdito1.getPosx(), (int) cerdito1.getPosy()) != color(108, 75, 34)) {
@@ -555,18 +556,37 @@ public class Main extends PApplet implements OnMessageListener{
 							cerdito1.setPosx(coords.getPosx());
 							cerdito1.setPosy(coords.getPosy());
 							
-						
+							if(coords.getType().contains("left")) {
+								cerdito1.setDir(2);
+							}
+							if(coords.getType().contains("right")) {
+								cerdito1.setDir(1);
+							}
 					}
 				}
 				
 				if (j1elef == true) {
 					elefantico1.setPosx(coords.getPosx());
 					elefantico1.setPosy(coords.getPosy());
+					
+					if(coords.getType().contains("left")) {
+						elefantico1.setDir(2);
+					}
+					if(coords.getType().contains("right")) {
+						elefantico1.setDir(1);
+					}
 				}
 				
 				if (j1chic == true) {
 					pollito1.setPosx(coords.getPosx());
 					pollito1.setPosx(coords.getPosx());
+					
+					if(coords.getType().contains("left")) {
+						pollito1.setDir(2);
+					}
+					if(coords.getType().contains("right")) {
+						pollito1.setDir(1);
+					}
 				}
 				
 				
@@ -583,16 +603,37 @@ public class Main extends PApplet implements OnMessageListener{
 				if (j2pig == true) {
 					cerdito2.setPosx(coords.getPosx());
 					cerdito2.setPosy(coords.getPosy());
+					
+					if(coords.getType().contains("left")) {
+						cerdito2.setDir(2);
+					}
+					if(coords.getType().contains("right")) {
+						cerdito2.setDir(1);
+					}
 				}
 				
 				if (j2elef == true) {
 					elefantico2.setPosx(coords.getPosx());
 					elefantico2.setPosy(coords.getPosy());
+					
+					if(coords.getType().contains("left")) {
+						elefantico2.setDir(2);
+					}
+					if(coords.getType().contains("right")) {
+						elefantico2.setDir(1);
+					}
 				}
 				
 				if (j2chic == true) {
 					pollito2.setPosx(coords.getPosx());
 					pollito2.setPosx(coords.getPosx());
+					
+					if(coords.getType().contains("left")) {
+						pollito2.setDir(2);
+					}
+					if(coords.getType().contains("right")) {
+						pollito2.setDir(1);
+					}
 				}
 				
 			}
