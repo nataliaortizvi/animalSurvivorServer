@@ -124,12 +124,12 @@ public class Main extends PApplet implements OnMessageListener{
 		    	int c = get(i, j);
 		    	
 		    	if ( c == color(108,75,34)) {
-		    		c = color (255,255,255);
+		    		c = color (0);
 		    		
 		    		
 		    	} else {
 	
-		    		c = color(0);
+		    		c = color(255,255,255);
 		    		stroke (c);
 		    		point (i, j);
 		    		
@@ -380,7 +380,7 @@ public class Main extends PApplet implements OnMessageListener{
 			//debe de haber 2 controles conectados
 			//boton jugar
 			if(mouseX > 930 && mouseX < 1030 && mouseY > 10 && mouseY < 53) {
-				if(players == 1) {
+				if(players == 2) {
 					pantalla = 0;
 				}
 			}
@@ -565,7 +565,7 @@ public class Main extends PApplet implements OnMessageListener{
 						
 							
 						
-					}
+							}
 				}
 				
 				if (j1elef == true) {
