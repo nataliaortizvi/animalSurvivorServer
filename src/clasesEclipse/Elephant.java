@@ -25,12 +25,12 @@ public class Elephant extends Character{
 		// TODO Auto-generated method stub
 		//mirando a la derecha
 		if(dir == 1) {
-			app.image(elefanteDer, posx, posy,80,90);
+			app.image(elefanteDer, this.posx, this.posy,80,90);
 		}
 						
 		//mirando a la izquierda
 		if(dir == 2) {
-			app.image(elefanteIzq, posx, posy,80,90);
+			app.image(elefanteIzq, this.posx, this.posy,80,90);
 		}
 		
 		app.image(elephantlife, 12, 19);
@@ -39,7 +39,7 @@ public class Elephant extends Character{
 	@Override
 	public void agregarBalas() {
 		// TODO Auto-generated method stub
-		balas.add(new Water(posx, posy, this.dir, app));
+		balas.add(new Water(this.posx, this.posy, this.dir, app));
 		
 	}
 	

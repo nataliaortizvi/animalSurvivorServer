@@ -19,7 +19,7 @@ public class Popo extends Bullet{
 	@Override
 	public void pintar() {
 		// TODO Auto-generated method stub
-		app.image(poop, px,py);
+		app.image(poop, this.px,this.py);
 		
 	}
 

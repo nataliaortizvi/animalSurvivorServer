@@ -11,9 +11,9 @@ public abstract class Bullet {
 	protected PApplet app;
 	
 	//constructor
-	public Bullet (float posx, float posy, int dire, PApplet app) {
-		this.px = posx;
-		this.py = posy;
+	public Bullet (float px, float py, int dire, PApplet app) {
+		this.px = px;
+		this.py = py;
 		this.dire = dire;
 		this.velo = 5;
 		this.app = app;
@@ -25,10 +25,10 @@ public abstract class Bullet {
 		
 		switch(dire) {
 		case 1:
-			px += velo;
+			this.px += velo;
 			break;
 		case 2:
-			px -= velo;
+			this.px -= velo;
 			break;
 		}
 		

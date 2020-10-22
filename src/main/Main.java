@@ -9,7 +9,6 @@ import clasesEclipse.Chicken;
 import clasesEclipse.Elephant;
 import clasesEclipse.Pig;
 import modelo.CoorAnimal;
-import modelo.LlegandoBullet;
 import modelo.NameAnimal;
 import processing.core.PApplet;
 import processing.core.PImage;
@@ -503,10 +502,7 @@ public class Main extends PApplet implements OnMessageListener{
 			Gson gsons = new Gson();
 			CoorAnimal coords = gsons.fromJson(mensajes, CoorAnimal.class);
 			
-			Gson gsond = new Gson();
-			LlegandoBullet shoots = gsond.fromJson(mensajes, LlegandoBullet.class);
-			
-			System.out.println(shoots.getLlega());
+			System.out.println(coords.getType());
 			
 			//si se mueve el jugador 1
 			if (jugadors.contains("Jugador1")) {

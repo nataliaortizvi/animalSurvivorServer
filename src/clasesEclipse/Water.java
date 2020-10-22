@@ -19,7 +19,7 @@ public class Water extends Bullet{
 	public void pintar() {
 		// TODO Auto-generated method stub
 	
-		app.image(water, px, py);
+		app.image(water, this.px, this.py);
 		
 	}
 

@@ -38,7 +38,7 @@ public class Chicken extends Character{
 	@Override
 	public void agregarBalas() {
 		// TODO Auto-generated method stub
-		balas.add(new Eggs(posx, posy, this.dir, app));
+		balas.add(new Eggs(this.posx, this.posy, this.dir, app));
 		
 		
 	}
