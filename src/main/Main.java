@@ -31,7 +31,7 @@ public class Main extends PApplet implements OnMessageListener{
 	private TCPSingletonJ1 tcpJ1;
 	private TCPSingletonJ2 tcpJ2;
 	
-	private float xJ1=50, yJ1=350; // xJ2=50, yJ2=350;
+	private float xJ1=50, yJ1=350, xJ2=1000, yJ2=350;
 	
 
 	public static void main(String[] args) {
@@ -481,31 +481,31 @@ public class Main extends PApplet implements OnMessageListener{
 			}
 			
 			//si la seleccion es del jugador 2
-			/*if(jugador.contains("Jugador2")) {
+			if(jugador.contains("Jugador2")) {
 				switch(tipo) {
 				case "pig":
-					cerdito2 = new Pig(coord.getPosx(), coord.getPosy(),this);
+					cerdito2 = new Pig(xJ2, yJ2,this);
 					j2pig = true;
 					j2elef = false;
 					j2chic = false;
 					j2live = true;
 					break;
 				case "chicken":
-					pollito2 = new Chicken(xJ1, yJ1, this);
+					pollito2 = new Chicken(xJ2, yJ2, this);
 					j2pig = false;
 					j2elef = false;
 					j2chic = true;
 					j2live = true;
 					break;
 				case "elephant":
-					elefantico2 = new Elephant(coord.getPosx(), coord.getPosy(),this);
+					elefantico2 = new Elephant(xJ2, yJ2,this);
 					j2pig = false;
 					j2elef = true;
 					j2chic = false;
 					j2live = true;
 					break;
 				}
-			}*/
+			}
 			
 			break;
 		case 4:
@@ -521,22 +521,35 @@ public class Main extends PApplet implements OnMessageListener{
 			
 			
 			
-			
+			//si se mueve el jugador 1
 			if (jugadors.contains("Jugador1")) {
 				//moverJ1 
 				cerdito1.setPosx(coords.getPosx());
 				cerdito1.setPosy(coords.getPosy());
 				
-				System.out.println(coords.getPosy());
+				pollito1.setPosx(coords.getPosx());
+				pollito1.setPosx(coords.getPosx());
+				
+				elefantico1.setPosx(coords.getPosx());
+				elefantico1.setPosy(coords.getPosy());
 				
 			}
 			
+			//si se mueve el jugador 2
 			if (jugadors.contains("Jugador2")) {
 				//moverJ2
+				cerdito2.setPosx(coords.getPosx());
+				cerdito2.setPosy(coords.getPosy());
+				
+				pollito2.setPosx(coords.getPosx());
+				pollito2.setPosx(coords.getPosx());
+				
+				elefantico2.setPosx(coords.getPosx());
+				elefantico2.setPosy(coords.getPosy());
 			}
 			
 		break;
-	}
+		}
 	}
 	
 
