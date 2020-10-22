@@ -32,8 +32,6 @@ public class Elephant extends Character{
 		if(dir == 2) {
 			app.image(elefanteIzq, this.posx, this.posy,80,90);
 		}
-		
-		app.image(elephantlife, 12, 19);
 	}
 
 	@Override

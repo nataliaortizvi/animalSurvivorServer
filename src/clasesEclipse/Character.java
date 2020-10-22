@@ -19,7 +19,7 @@ public abstract class Character {
 		this.posy = posy;
 		this.vel = 2;
 		this.dir = 1;
-		this.vida = 100;
+		this.vida = 93;
 		this.app = app;
 		
 		balas = new ArrayList <Bullet>();
@@ -31,15 +31,43 @@ public abstract class Character {
 			balas.get(i).pintar();
 			balas.get(i).mover();
 			
-			if(balas.get(i).getPx() > 1060) {
+			if(balas.get(i).getPx() > 1500 || balas.get(i).getPx() < -50) {
 				balas.remove(i);
 			}
-			if(balas.get(i).getPx() < -50) {
-				balas.remove(i);
-			}
+			
 		}
 	}
 	
+	public int getVida() {
+		return vida;
+	}
+
+
+	public void setVida(int vida) {
+		this.vida = vida;
+	}
+
+
+	public String getType() {
+		return type;
+	}
+
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
+
+	public ArrayList<Bullet> getBalas() {
+		return balas;
+	}
+
+
+	public void setBalas(ArrayList<Bullet> balas) {
+		this.balas = balas;
+	}
+
+
 	public abstract void agregarBalas();
 	
 	public abstract void pintar();

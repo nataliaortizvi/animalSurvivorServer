@@ -32,7 +32,6 @@ public class Pig extends Character{
 			app.image(cerdoIzq, posx, posy,80,80);
 		}
 		
-		//app.image(piglife, 12,19);
 		
 	}
 

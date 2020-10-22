@@ -17,7 +17,8 @@ public class Main extends PApplet implements OnMessageListener{
 	
 	int pantalla, gameTime= 120, players = 0;
 	PImage pantUno, prim, primP, pantInicio, pantPlayer, pantControl, pantInstru, pantJuego, pantGanador, jugar, jugarP,
-	instru, instruP, contro, controP, pasto, atras, atrasP, jugarPP, jugarPPP, player1, player2;
+	instru, instruP, contro, controP, pasto, atras, atrasP, jugarPP, jugarPPP, player1, player2,
+	vidaPig, vidaElef, vidaPollo;
 	
 	String ip, j1,j2;
 	Pig cerdito1, cerdito2;
@@ -35,7 +36,7 @@ public class Main extends PApplet implements OnMessageListener{
 	
 
 	
-	private float xJ1=50, yJ1=350, xJ2=1000, yJ2=350;
+	private float xJ1=50, yJ1=350, xJ2=980, yJ2=350;
 	
 
 	public static void main(String[] args) {
@@ -113,6 +114,9 @@ public class Main extends PApplet implements OnMessageListener{
 		pasto = loadImage("img/pasto.png");
 		player1 = loadImage("img/jugador1.png");
 		player2 = loadImage("img/jugador2.png");
+		vidaPig = loadImage("img/piglife.png");
+		vidaPollo = loadImage("img/gallolife.png");
+		vidaElef = loadImage("img/elephanlife.png");
 	
 		
 		for (int i=0; i<width; i++) {
@@ -235,6 +239,7 @@ public class Main extends PApplet implements OnMessageListener{
 			
 			if(j1pig==true) {
 				image(player1, 160,373);
+	
 			}
 			if(j1chic==true) {
 				image(player1, 470,373);
@@ -264,26 +269,54 @@ public class Main extends PApplet implements OnMessageListener{
 			if(j1pig==true) {
 				cerdito1.pintar();
 				cerdito1.pintarBalas();
+				image(vidaPig, 4,11,40,40);
+				fill(70,355,70);
+				noStroke();
+				rect(51,(float) 27.5,cerdito1.getVida(),10);
 			}
 			if(j1chic==true) {
 				pollito1.pintar();
 				pollito1.pintarBalas();
+				image(vidaPollo, 4,11,40,40);
+				fill(70,355,70);
+				noStroke();
+				rect(51,(float) 27.5,pollito1.getVida(),10);
 			}
 			if(j1elef==true) {
 				elefantico1.pintar();
 				elefantico1.pintarBalas();
+				image(vidaElef, 4,11,40,40);
+				fill(70,355,70);
+				noStroke();
+				rect(51,(float) 27.5,elefantico1.getVida(),10);
 			}
 			
 			
 			//pintar jugador 2
 			if(j2pig==true) {
 				cerdito2.pintar();
+				cerdito2.pintarBalas();
+				image(vidaPig, 1004,11,40,40);
+				fill(70,355,70);
+				noStroke();
+				rect(900,28,cerdito2.getVida(),10);
 			}
 			if(j2chic==true) {
 				pollito2.pintar();
+				pollito2.pintarBalas();
+				image(vidaPollo, 1004,11,40,40);
+				fill(70,355,70);
+				noStroke();
+				rect(900,28,cerdito2.getVida(),10);
+				
 			}
 			if(j2elef==true) {
 				elefantico2.pintar();
+				elefantico2.pintarBalas();
+				image(vidaElef, 1004,11,40,40);
+				fill(70,355,70);
+				noStroke();
+				rect(900,28,cerdito2.getVida(),10);
 			}
 			
 			fill(21,118,147);
@@ -296,6 +329,8 @@ public class Main extends PApplet implements OnMessageListener{
 			image(pasto,0,385);
 			if(gameTime == 0) {
 				pantalla = 5;
+				tcpJ1.enviarMensaje("end");
+				tcpJ2.enviarMensaje("end");
 			}
 			break;
 		case 5:
@@ -325,7 +360,7 @@ public class Main extends PApplet implements OnMessageListener{
 			if(mouseX > 730 && mouseX < 940 && mouseY > 175 && mouseY < 220) {
 				pantalla = 3;
 				tcpJ1.enviarMensaje("escoger");
-				//tcpJ2.enviarMensaje("escoger");
+				tcpJ2.enviarMensaje("escoger");
 			}
 			//boton control
 			if(mouseX > 100 && mouseX < 310 && mouseY > 140 && mouseY < 185) {
@@ -364,7 +399,7 @@ public class Main extends PApplet implements OnMessageListener{
 				pantalla = 3;
 				
 				tcpJ1.enviarMensaje("escoger");
-				//tcpJ2.enviarMensaje("escoger");
+				tcpJ2.enviarMensaje("escoger");
 			}
 			
 			break;
@@ -384,6 +419,7 @@ public class Main extends PApplet implements OnMessageListener{
 							
 							pantalla = 4;
 							tcpJ1.enviarMensaje("play");
+							tcpJ2.enviarMensaje("play");
 							cayendo = true;
 				}
 			}
@@ -523,6 +559,9 @@ public class Main extends PApplet implements OnMessageListener{
 						if(coords.getType().contains("right")) {
 							cerdito1.setDir(1);
 						}
+						if(coords.getType().contains("paw")) {
+							cerdito1.agregarBalas();
+						}
 						
 							
 						
@@ -539,6 +578,9 @@ public class Main extends PApplet implements OnMessageListener{
 					if(coords.getType().contains("right")) {
 						elefantico1.setDir(1);
 					}
+					if(coords.getType().contains("paw")) {
+						elefantico1.agregarBalas();
+					}
 				
 					}
 				
@@ -552,6 +594,9 @@ public class Main extends PApplet implements OnMessageListener{
 					}
 					if(coords.getType().contains("right")) {
 						pollito1.setDir(1);
+					}
+					if(coords.getType().contains("paw")) {
+						pollito1.agregarBalas();
 					}
 					
 				}
@@ -573,6 +618,9 @@ public class Main extends PApplet implements OnMessageListener{
 					if(coords.getType().contains("right")) {
 						cerdito2.setDir(1);
 					}
+					if(coords.getType().contains("paw")) {
+						cerdito2.agregarBalas();
+					}
 				}
 				
 				if (j2elef == true) {
@@ -585,6 +633,9 @@ public class Main extends PApplet implements OnMessageListener{
 					if(coords.getType().contains("right")) {
 						elefantico2.setDir(1);
 					}
+					if(coords.getType().contains("paw")) {
+						elefantico2.agregarBalas();
+					}
 				}
 				
 				if (j2chic == true) {
@@ -596,6 +647,9 @@ public class Main extends PApplet implements OnMessageListener{
 					}
 					if(coords.getType().contains("right")) {
 						pollito2.setDir(1);
+					}
+					if(coords.getType().contains("paw")) {
+						pollito2.agregarBalas();
 					}
 				}
 				
