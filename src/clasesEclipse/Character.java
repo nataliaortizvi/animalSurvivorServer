@@ -34,6 +34,9 @@ public abstract class Character {
 			if(balas.get(i).getPx() > 1060) {
 				balas.remove(i);
 			}
+			if(balas.get(i).getPx() < -50) {
+				balas.remove(i);
+			}
 		}
 	}
 	
