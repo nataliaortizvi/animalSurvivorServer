@@ -19,7 +19,7 @@ public class Main extends PApplet implements OnMessageListener{
 	int pantalla, gameTime= 120, players = 0, danno = 5;
 	PImage pantUno, prim, primP, pantInicio, pantPlayer, pantControl, pantInstru, pantJuego, pantGanador, jugar, jugarP,
 	instru, instruP, contro, controP, pasto, atras, atrasP, jugarPP, jugarPPP, player1, player2,
-	vidaPig, vidaElef, vidaPollo;
+	vidaPig, vidaElef, vidaPollo, mapabw;
 	
 	String ip, j1,j2;
 	Pig cerdito1, cerdito2;
@@ -118,20 +118,19 @@ public class Main extends PApplet implements OnMessageListener{
 		vidaPig = loadImage("img/piglife.png");
 		vidaPollo = loadImage("img/gallolife.png");
 		vidaElef = loadImage("img/elephanlife.png");
+		mapabw = loadImage("img/mapabw.png");
 	
 		
 		for (int i=0; i<width; i++) {
 		    for (int j=0; j<height; j++) {
 		    	int c = get(i, j);
 		    	
-		    	if ( c == color(108,75,34)) {
-		    		c = color (0);
-		    		
+		    	if ( c == color(255,255,255)) {
 		    		
 		    	} else {
 	
-		    		c = color(255,255,255);
-		    		stroke (c);
+		    		c = color(0);
+		    		//stroke (c);
 		    		point (i, j);
 		    		
 		    	}
@@ -263,6 +262,7 @@ public class Main extends PApplet implements OnMessageListener{
 			break;
 		case 4:
 			//pantalla de juego
+			image(mapabw, 0, 0);
 			image(pantJuego,0,0);
 			
 			
@@ -559,7 +559,7 @@ public class Main extends PApplet implements OnMessageListener{
 			Gson gsons = new Gson();
 			CoorAnimal coords = gsons.fromJson(mensajes, CoorAnimal.class);
 			
-			System.out.println(coords.getType());
+			
 			
 			//si se mueve el jugador 1
 			if (jugadors.contains("Jugador1")) {
@@ -588,35 +588,47 @@ public class Main extends PApplet implements OnMessageListener{
 						if(j2pig) {
 							if(dist(bala.getPx(), bala.getPy(), cerdito2.getPosx(), cerdito2.getPosy()) < 50) {
 								cerdito2.setVida(cerdito2.getVida() + danno);
-								cerdito1.quitarBala();
+								cerdito1.getBalas().remove(i);
 							}
 						}
 						
 						if(j2chic) {
 						if(dist(bala.getPx(), bala.getPy(), pollito2.getPosx(), pollito2.getPosy()) < 50) {
 							pollito2.setVida(pollito2.getVida() + danno);
-							cerdito1.quitarBala();
+							cerdito1.getBalas().remove(i);
 							}
 						}
 						
 						if(j2elef) {
 						if(dist(bala.getPx(), bala.getPy(), elefantico2.getPosx(), elefantico2.getPosy()) < 50) {
 							elefantico2.setVida(elefantico2.getVida() + danno);
-							cerdito1.quitarBala();
+							cerdito1.getBalas().remove(i);
 							}
 						}
 						
 					}
 					
-					if (pantJuego.get((int) cerdito1.getPosx(), (int) cerdito1.getPosy()-77) != color(108, 75, 34)) {
-						
+					
+					
+					
+					if (mapabw.get((int) cerdito1.getPosx(), (int) cerdito1.getPosy()+77) == color(255,255,255)) {
+						System.out.println("cerditoooY:"+" "+cerdito1.getPosy()+77);
 
 						//movimiento
-						cerdito1.setPosx(coords.getPosx());
 						cerdito1.setPosy(coords.getPosy());
-					
+						cerdito1.setPosx(coords.getPosx());
+						
+						
+					} else {
+						
+						cerdito1.setPosx(coords.getPosx());
+						
 					}
-
+					
+						
+						
+					
+					
 				}
 				
 				if (j1elef == true) {
@@ -644,21 +656,21 @@ public class Main extends PApplet implements OnMessageListener{
 						if(j2pig) {
 						if(dist(bala.getPx(), bala.getPy(), cerdito2.getPosx(), cerdito2.getPosy()) < 50) {
 							cerdito2.setVida(cerdito2.getVida() + danno);
-							elefantico1.quitarBala();
+							elefantico1.getBalas().remove(i);
 						}
 						}
 						
 						if(j2chic) {
 						if(dist(bala.getPx(), bala.getPy(), pollito2.getPosx(), pollito2.getPosy()) < 50) {
 							pollito2.setVida(pollito2.getVida() + danno);
-							elefantico1.quitarBala();
+							elefantico1.getBalas().remove(i);
 						}
 						}
 						
 						if(j2elef) {
 						if(dist(bala.getPx(), bala.getPy(), elefantico2.getPosx(), elefantico2.getPosy()) < 50) {
 							elefantico2.setVida(elefantico2.getVida() + danno);
-							elefantico1.quitarBala();
+							elefantico1.getBalas().remove(i);
 						}
 						}
 						
@@ -695,21 +707,21 @@ public class Main extends PApplet implements OnMessageListener{
 						if(j2pig) {
 						if(dist(bala.getPx(), bala.getPy(), cerdito2.getPosx(), cerdito2.getPosy()) < 50) {
 							cerdito2.setVida(cerdito2.getVida() + danno);
-							pollito1.quitarBala();
+							pollito1.getBalas().remove(i);
 						}
 						}
 						
 						if(j2chic) {
 						if(dist(bala.getPx(), bala.getPy(), pollito2.getPosx(), pollito2.getPosy()) < 50) {
 							pollito2.setVida(pollito2.getVida() + danno);
-							pollito1.quitarBala();
+							pollito1.getBalas().remove(i);
 						}
 						}
 						
 						if(j2elef) {
 						if(dist(bala.getPx(), bala.getPy(), elefantico2.getPosx(), elefantico2.getPosy()) < 50) {
 							elefantico2.setVida(elefantico2.getVida() + danno);
-							pollito1.quitarBala();
+							pollito1.getBalas().remove(i);
 						}
 						}
 						
@@ -750,21 +762,21 @@ public class Main extends PApplet implements OnMessageListener{
 						if(j1pig) {
 						if(dist(bala.getPx(), bala.getPy(), cerdito1.getPosx(), cerdito1.getPosy()) < 50) {
 							cerdito1.setVida(cerdito2.getVida() - danno);
-							cerdito2.quitarBala();
+							cerdito2.getBalas().remove(i);
 						}
 						}
 						
 						if(j1chic) {
 						if(dist(bala.getPx(), bala.getPy(), pollito1.getPosx(), pollito1.getPosy()) < 50) {
 							pollito1.setVida(pollito2.getVida() - danno);
-							cerdito2.quitarBala();
+							cerdito2.getBalas().remove(i);
 						}
 						}
 						
 						if(j1elef) {
 						if(dist(bala.getPx(), bala.getPy(), elefantico1.getPosx(), elefantico1.getPosy()) < 50) {
 							elefantico1.setVida(elefantico2.getVida() - danno);
-							cerdito2.quitarBala();
+							cerdito2.getBalas().remove(i);
 						}
 						}
 						
@@ -798,21 +810,21 @@ public class Main extends PApplet implements OnMessageListener{
 						if(j1pig) {
 						if(dist(bala.getPx(), bala.getPy(), cerdito1.getPosx(), cerdito1.getPosy()) < 50) {
 							cerdito1.setVida(cerdito1.getVida() - danno);
-							elefantico2.quitarBala();
+							elefantico2.getBalas().remove(i);
 						}
 						}
 						
 						if(j1chic) {
 						if(dist(bala.getPx(), bala.getPy(), pollito1.getPosx(), pollito1.getPosy()) < 50) {
 							pollito1.setVida(pollito1.getVida() - danno);
-							elefantico2.quitarBala();
+							elefantico2.getBalas().remove(i);
 						}
 						}
 						
 						if(j1elef) {
 						if(dist(bala.getPx(), bala.getPy(), elefantico1.getPosx(), elefantico1.getPosy()) < 50) {
 							elefantico1.setVida(elefantico1.getVida() - danno);
-							elefantico2.quitarBala();
+							elefantico2.getBalas().remove(i);
 						}
 						}
 						
@@ -845,21 +857,21 @@ public class Main extends PApplet implements OnMessageListener{
 						if(j1pig) {
 						if(dist(bala.getPx(), bala.getPy(), cerdito1.getPosx(), cerdito1.getPosy()) < 50) {
 							cerdito1.setVida(cerdito1.getVida() - danno);
-							pollito2.quitarBala();
+							pollito2.getBalas().remove(i);
 						}
 						}
 						
 						if(j1chic) {
 						if(dist(bala.getPx(), bala.getPy(), pollito1.getPosx(), pollito1.getPosy()) < 50) {
 							pollito1.setVida(pollito1.getVida() - danno);
-							pollito2.quitarBala();
+							pollito2.getBalas().remove(i);
 						}
 						}
 						
 						if(j1elef) {
 						if(dist(bala.getPx(), bala.getPy(), elefantico1.getPosx(), elefantico1.getPosy()) < 50) {
 							elefantico1.setVida(elefantico1.getVida() - danno);
-							pollito2.quitarBala();
+							pollito2.getBalas().remove(i);
 						}
 						}
 						
