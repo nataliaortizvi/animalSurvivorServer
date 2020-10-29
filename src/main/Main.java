@@ -263,6 +263,8 @@ public class Main extends PApplet implements OnMessageListener{
 			
 			//pintar jugador 1
 			if(j1pig==true) {
+				tcpJ1.enviarMensaje("chosenPig");
+				
 				cerdito1.pintar();
 				cerdito1.pintarBalas();
 				image(vidaPig, 4,11,40,40);
@@ -298,6 +300,8 @@ public class Main extends PApplet implements OnMessageListener{
 			}
 			
 			if(j1chic==true) {
+				tcpJ1.enviarMensaje("chosenChic");
+				
 				pollito1.pintar();
 				pollito1.pintarBalas();
 				image(vidaPollo, 4,11,40,40);
@@ -335,6 +339,8 @@ public class Main extends PApplet implements OnMessageListener{
 				
 			}
 			if(j1elef==true) {
+				tcpJ1.enviarMensaje("chosenElef");
+				
 				elefantico1.pintar();
 				elefantico1.pintarBalas();
 				image(vidaElef, 4,11,40,40);
@@ -374,6 +380,8 @@ public class Main extends PApplet implements OnMessageListener{
 			
 			//pintar jugador 2
 			if(j2pig==true) {
+				tcpJ2.enviarMensaje("chosenPig");
+				
 				cerdito2.pintar();
 				cerdito2.pintarBalas();
 				image(vidaPig, 1004,11,40,40);
@@ -412,6 +420,8 @@ public class Main extends PApplet implements OnMessageListener{
 			
 			}
 			if(j2chic==true) {
+				tcpJ2.enviarMensaje("chosenChic");
+				
 				pollito2.pintar();
 				pollito2.pintarBalas();
 				image(vidaPollo, 1004,11,40,40);
@@ -450,6 +460,8 @@ public class Main extends PApplet implements OnMessageListener{
 				
 			}
 			if(j2elef==true) {
+				tcpJ2.enviarMensaje("chosenElef");
+				
 				elefantico2.pintar();
 				elefantico2.pintarBalas();
 				image(vidaElef, 1004,11,40,40);
@@ -590,39 +602,10 @@ public class Main extends PApplet implements OnMessageListener{
 							
 							////player one
 							tcpJ1.enviarMensaje("play");
-							//pintar jugador cerdo en el control
-							if(j1pig==true) {
-								
-								tcpJ1.enviarMensaje("chosenPig");
-							}
-							//pintar jugador gallo en el control
-							if(j1chic==true) {
-								
-								tcpJ1.enviarMensaje("chosenChic");
-							}
-							//pintar jugador elefante en control
-							if(j1elef==true) {
-								
-								tcpJ1.enviarMensaje("chosenElef");
-							}
 							
 							////player one
 							tcpJ2.enviarMensaje("play");
-							//pintar jugador cerdo en el control
-							if(j2pig==true) {
-								
-								tcpJ2.enviarMensaje("chosenPig");
-							}
-							//pintar jugador gallo en el control
-							if(j2chic==true) {
-								
-								tcpJ2.enviarMensaje("chosenChic");
-							}
-							//pintar jugador elefante en control
-							if(j2elef==true) {
-								
-								tcpJ2.enviarMensaje("chosenElef");
-							}
+							
 				}
 			}
 			
