@@ -132,11 +132,9 @@ public class Main extends PApplet implements OnMessageListener{
 		    		c = color(0);
 		    		//stroke (c);
 		    		point (i, j);
-		    		
 		    	}
 		    }		
 		}
-	
 	}
 	
 	public void draw() {
@@ -239,7 +237,6 @@ public class Main extends PApplet implements OnMessageListener{
 			
 			if(j1pig==true) {
 				image(player1, 160,373);
-	
 			}
 			if(j1chic==true) {
 				image(player1, 470,373);
@@ -247,7 +244,6 @@ public class Main extends PApplet implements OnMessageListener{
 			if(j1elef==true) {
 				image(player1, 770,373);
 			}
-			
 			if(j2pig==true) {
 				image(player2, 160,373);
 			}
@@ -275,8 +271,33 @@ public class Main extends PApplet implements OnMessageListener{
 				noStroke();
 				rect(51,(float) 27.5,cerdito1.getVida(),10);
 				
-			
+				//daño de las balas al oponente y desaparicion de balas cuando le caen al jugador opuesto
+				for(int i = 0; i < cerdito1.getBalas().size(); i++) {
+					Bullet bala = cerdito1.getBalas().get(i);
+					
+					if(j2pig) {
+						if(dist(bala.getPx(), bala.getPy(), cerdito2.getPosx(), cerdito2.getPosy()) < 50) {
+							cerdito2.setVida(cerdito2.getVida() + danno);
+							cerdito1.getBalas().remove(i);
+						}
+					}
+					
+					if(j2chic) {
+					if(dist(bala.getPx(), bala.getPy(), pollito2.getPosx(), pollito2.getPosy()) < 50) {
+						pollito2.setVida(pollito2.getVida() + danno);
+						cerdito1.getBalas().remove(i);
+						}
+					}
+					
+					if(j2elef) {
+					if(dist(bala.getPx(), bala.getPy(), elefantico2.getPosx(), elefantico2.getPosy()) < 50) {
+						elefantico2.setVida(elefantico2.getVida() + danno);
+						cerdito1.getBalas().remove(i);
+						}
+					}
+				}
 			}
+			
 			if(j1chic==true) {
 				pollito1.pintar();
 				pollito1.pintarBalas();
@@ -285,6 +306,33 @@ public class Main extends PApplet implements OnMessageListener{
 				noStroke();
 				rect(51,(float) 27.5,pollito1.getVida(),10);
 				
+				
+				//daño de las balas al oponente y desaparicion de balas cuando le caen al jugador opuesto
+				for(int i = 0; i < pollito1.getBalas().size(); i++) {
+					Bullet bala = pollito1.getBalas().get(i);
+					
+					if(j2pig) {
+					if(dist(bala.getPx(), bala.getPy(), cerdito2.getPosx(), cerdito2.getPosy()) < 50) {
+						cerdito2.setVida(cerdito2.getVida() + danno);
+						pollito1.getBalas().remove(i);
+					}
+					}
+					
+					if(j2chic) {
+					if(dist(bala.getPx(), bala.getPy(), pollito2.getPosx(), pollito2.getPosy()) < 50) {
+						pollito2.setVida(pollito2.getVida() + danno);
+						pollito1.getBalas().remove(i);
+					}
+					}
+					
+					if(j2elef) {
+					if(dist(bala.getPx(), bala.getPy(), elefantico2.getPosx(), elefantico2.getPosy()) < 50) {
+						elefantico2.setVida(elefantico2.getVida() + danno);
+						pollito1.getBalas().remove(i);
+					}
+					}
+					
+				}
 				
 			}
 			if(j1elef==true) {
@@ -295,7 +343,33 @@ public class Main extends PApplet implements OnMessageListener{
 				noStroke();
 				rect(51,(float) 27.5,elefantico1.getVida(),10);
 				
-			
+
+				//daño de las balas al oponente y desaparicion de balas cuando le caen al jugador opuesto
+				for(int i = 0; i < elefantico1.getBalas().size(); i++) {
+					Bullet bala = elefantico1.getBalas().get(i);
+					
+					if(j2pig) {
+					if(dist(bala.getPx(), bala.getPy(), cerdito2.getPosx(), cerdito2.getPosy()) < 50) {
+						cerdito2.setVida(cerdito2.getVida() + danno);
+						elefantico1.getBalas().remove(i);
+					}
+					}
+					
+					if(j2chic) {
+					if(dist(bala.getPx(), bala.getPy(), pollito2.getPosx(), pollito2.getPosy()) < 50) {
+						pollito2.setVida(pollito2.getVida() + danno);
+						elefantico1.getBalas().remove(i);
+					}
+					}
+					
+					if(j2elef) {
+					if(dist(bala.getPx(), bala.getPy(), elefantico2.getPosx(), elefantico2.getPosy()) < 50) {
+						elefantico2.setVida(elefantico2.getVida() + danno);
+						elefantico1.getBalas().remove(i);
+					}
+					}
+					
+				}
 			}
 			
 			
@@ -310,6 +384,32 @@ public class Main extends PApplet implements OnMessageListener{
 				fill(58,89,109);
 				rect(899,(float) 27.5,cerdito2.getVida()-93,10);
 				
+				//daño de las balas al oponente y desaparicion de balas cuando le caen al jugador opuesto
+				for(int i = 0; i < cerdito2.getBalas().size(); i++) {
+					Bullet bala2 = cerdito2.getBalas().get(i);
+					
+					if(j1pig) {
+					if(dist(bala2.getPx(), bala2.getPy(), cerdito1.getPosx(), cerdito1.getPosy()) < 50) {
+						cerdito1.setVida(cerdito2.getVida() - danno);
+						cerdito2.getBalas().remove(i);
+					}
+					}
+					
+					if(j1chic) {
+					if(dist(bala2.getPx(), bala2.getPy(), pollito1.getPosx(), pollito1.getPosy()) < 50) {
+						pollito1.setVida(pollito2.getVida() - danno);
+						cerdito2.getBalas().remove(i);
+					}
+					}
+					
+					if(j1elef) {
+					if(dist(bala2.getPx(), bala2.getPy(), elefantico1.getPosx(), elefantico1.getPosy()) < 50) {
+						elefantico1.setVida(elefantico2.getVida() - danno);
+						cerdito2.getBalas().remove(i);
+					}
+					}
+					
+				}
 			
 			}
 			if(j2chic==true) {
@@ -322,7 +422,32 @@ public class Main extends PApplet implements OnMessageListener{
 				fill(58,89,109);
 				rect(899,(float) 27.5,pollito2.getVida()-93,10);
 				
-				
+				//daño de las balas al oponente y desaparicion de balas cuando le caen al jugador opuesto
+				for(int i = 0; i < pollito2.getBalas().size(); i++) {
+					Bullet bala2 = pollito2.getBalas().get(i);
+					
+					if(j1pig) {
+					if(dist(bala2.getPx(), bala2.getPy(), cerdito1.getPosx(), cerdito1.getPosy()) < 50) {
+						cerdito1.setVida(cerdito1.getVida() - danno);
+						pollito2.getBalas().remove(i);
+					}
+					}
+					
+					if(j1chic) {
+					if(dist(bala2.getPx(), bala2.getPy(), pollito1.getPosx(), pollito1.getPosy()) < 50) {
+						pollito1.setVida(pollito1.getVida() - danno);
+						pollito2.getBalas().remove(i);
+					}
+					}
+					
+					if(j1elef) {
+					if(dist(bala2.getPx(), bala2.getPy(), elefantico1.getPosx(), elefantico1.getPosy()) < 50) {
+						elefantico1.setVida(elefantico1.getVida() - danno);
+						pollito2.getBalas().remove(i);
+					}
+					}
+					
+				}
 				
 			}
 			if(j2elef==true) {
@@ -335,6 +460,32 @@ public class Main extends PApplet implements OnMessageListener{
 				fill(58,89,109);
 				rect(899,(float) 27.5,elefantico2.getVida()-93,10);
 				
+				//daño de las balas al oponente y desaparicion de balas cuando le caen al jugador opuesto
+				for(int i = 0; i < elefantico2.getBalas().size(); i++) {
+					Bullet bala2 = elefantico2.getBalas().get(i);
+					
+					if(j1pig) {
+					if(dist(bala2.getPx(), bala2.getPy(), cerdito1.getPosx(), cerdito1.getPosy()) < 50) {
+						cerdito1.setVida(cerdito1.getVida() - danno);
+						elefantico2.getBalas().remove(i);
+					}
+					}
+					
+					if(j1chic) {
+					if(dist(bala2.getPx(), bala2.getPy(), pollito1.getPosx(), pollito1.getPosy()) < 50) {
+						pollito1.setVida(pollito1.getVida() - danno);
+						elefantico2.getBalas().remove(i);
+					}
+					}
+					
+					if(j1elef) {
+					if(dist(bala2.getPx(), bala2.getPy(), elefantico1.getPosx(), elefantico1.getPosy()) < 50) {
+						elefantico1.setVida(elefantico1.getVida() - danno);
+						elefantico2.getBalas().remove(i);
+					}
+					}
+					
+				}
 				
 			}
 			
@@ -581,36 +732,6 @@ public class Main extends PApplet implements OnMessageListener{
 						cerdito1.agregarBalas();
 					}
 					
-					//daño de las balas al oponente y desaparicion de balas cuando le caen al jugador opuesto
-					for(int i = 0; i < cerdito1.getBalas().size(); i++) {
-						Bullet bala = cerdito1.getBalas().get(i);
-						
-						if(j2pig) {
-							if(dist(bala.getPx(), bala.getPy(), cerdito2.getPosx(), cerdito2.getPosy()) < 50) {
-								cerdito2.setVida(cerdito2.getVida() + danno);
-								cerdito1.getBalas().remove(i);
-							}
-						}
-						
-						if(j2chic) {
-						if(dist(bala.getPx(), bala.getPy(), pollito2.getPosx(), pollito2.getPosy()) < 50) {
-							pollito2.setVida(pollito2.getVida() + danno);
-							cerdito1.getBalas().remove(i);
-							}
-						}
-						
-						if(j2elef) {
-						if(dist(bala.getPx(), bala.getPy(), elefantico2.getPosx(), elefantico2.getPosy()) < 50) {
-							elefantico2.setVida(elefantico2.getVida() + danno);
-							cerdito1.getBalas().remove(i);
-							}
-						}
-						
-					}
-					
-					
-					
-					
 					if (mapabw.get((int) cerdito1.getPosx(), (int) cerdito1.getPosy()+77) == color(255,255,255)) {
 						System.out.println("cerditoooY:"+" "+cerdito1.getPosy()+77);
 
@@ -618,17 +739,11 @@ public class Main extends PApplet implements OnMessageListener{
 						cerdito1.setPosy(coords.getPosy());
 						cerdito1.setPosx(coords.getPosx());
 						
-						
 					} else {
 						
 						cerdito1.setPosx(coords.getPosx());
 						
 					}
-					
-						
-						
-					
-					
 				}
 				
 				if (j1elef == true) {
@@ -648,34 +763,6 @@ public class Main extends PApplet implements OnMessageListener{
 					if(coords.getType().contains("paw")) {
 						elefantico1.agregarBalas();
 					}
-					
-					//daño de las balas al oponente y desaparicion de balas cuando le caen al jugador opuesto
-					for(int i = 0; i < elefantico1.getBalas().size(); i++) {
-						Bullet bala = elefantico1.getBalas().get(i);
-						
-						if(j2pig) {
-						if(dist(bala.getPx(), bala.getPy(), cerdito2.getPosx(), cerdito2.getPosy()) < 50) {
-							cerdito2.setVida(cerdito2.getVida() + danno);
-							elefantico1.getBalas().remove(i);
-						}
-						}
-						
-						if(j2chic) {
-						if(dist(bala.getPx(), bala.getPy(), pollito2.getPosx(), pollito2.getPosy()) < 50) {
-							pollito2.setVida(pollito2.getVida() + danno);
-							elefantico1.getBalas().remove(i);
-						}
-						}
-						
-						if(j2elef) {
-						if(dist(bala.getPx(), bala.getPy(), elefantico2.getPosx(), elefantico2.getPosy()) < 50) {
-							elefantico2.setVida(elefantico2.getVida() + danno);
-							elefantico1.getBalas().remove(i);
-						}
-						}
-						
-					}
-					
 				
 					}
 				
@@ -699,37 +786,7 @@ public class Main extends PApplet implements OnMessageListener{
 					if(coords.getType().contains("paw")) {
 						pollito1.agregarBalas();
 					}
-					
-					//daño de las balas al oponente y desaparicion de balas cuando le caen al jugador opuesto
-					for(int i = 0; i < pollito1.getBalas().size(); i++) {
-						Bullet bala = pollito1.getBalas().get(i);
-						
-						if(j2pig) {
-						if(dist(bala.getPx(), bala.getPy(), cerdito2.getPosx(), cerdito2.getPosy()) < 50) {
-							cerdito2.setVida(cerdito2.getVida() + danno);
-							pollito1.getBalas().remove(i);
-						}
-						}
-						
-						if(j2chic) {
-						if(dist(bala.getPx(), bala.getPy(), pollito2.getPosx(), pollito2.getPosy()) < 50) {
-							pollito2.setVida(pollito2.getVida() + danno);
-							pollito1.getBalas().remove(i);
-						}
-						}
-						
-						if(j2elef) {
-						if(dist(bala.getPx(), bala.getPy(), elefantico2.getPosx(), elefantico2.getPosy()) < 50) {
-							elefantico2.setVida(elefantico2.getVida() + danno);
-							pollito1.getBalas().remove(i);
-						}
-						}
-						
-					}
-					
 				}
-				
-				
 			}
 			
 			//si se mueve el jugador 2
@@ -753,34 +810,7 @@ public class Main extends PApplet implements OnMessageListener{
 					//disparo
 					if(coords.getType().contains("paw")) {
 						cerdito2.agregarBalas();
-					}
-					
-					//daño de las balas al oponente y desaparicion de balas cuando le caen al jugador opuesto
-					for(int i = 0; i < cerdito2.getBalas().size(); i++) {
-						Bullet bala = cerdito2.getBalas().get(i);
-						
-						if(j1pig) {
-						if(dist(bala.getPx(), bala.getPy(), cerdito1.getPosx(), cerdito1.getPosy()) < 50) {
-							cerdito1.setVida(cerdito2.getVida() - danno);
-							cerdito2.getBalas().remove(i);
-						}
-						}
-						
-						if(j1chic) {
-						if(dist(bala.getPx(), bala.getPy(), pollito1.getPosx(), pollito1.getPosy()) < 50) {
-							pollito1.setVida(pollito2.getVida() - danno);
-							cerdito2.getBalas().remove(i);
-						}
-						}
-						
-						if(j1elef) {
-						if(dist(bala.getPx(), bala.getPy(), elefantico1.getPosx(), elefantico1.getPosy()) < 50) {
-							elefantico1.setVida(elefantico2.getVida() - danno);
-							cerdito2.getBalas().remove(i);
-						}
-						}
-						
-					}
+					}	
 				}
 				
 				if (j2elef == true) {
@@ -801,36 +831,7 @@ public class Main extends PApplet implements OnMessageListener{
 					//disparo
 					if(coords.getType().contains("paw")) {
 						elefantico2.agregarBalas();
-					}
-					
-					//daño de las balas al oponente y desaparicion de balas cuando le caen al jugador opuesto
-					for(int i = 0; i < elefantico2.getBalas().size(); i++) {
-						Bullet bala = elefantico2.getBalas().get(i);
-						
-						if(j1pig) {
-						if(dist(bala.getPx(), bala.getPy(), cerdito1.getPosx(), cerdito1.getPosy()) < 50) {
-							cerdito1.setVida(cerdito1.getVida() - danno);
-							elefantico2.getBalas().remove(i);
-						}
-						}
-						
-						if(j1chic) {
-						if(dist(bala.getPx(), bala.getPy(), pollito1.getPosx(), pollito1.getPosy()) < 50) {
-							pollito1.setVida(pollito1.getVida() - danno);
-							elefantico2.getBalas().remove(i);
-						}
-						}
-						
-						if(j1elef) {
-						if(dist(bala.getPx(), bala.getPy(), elefantico1.getPosx(), elefantico1.getPosy()) < 50) {
-							elefantico1.setVida(elefantico1.getVida() - danno);
-							elefantico2.getBalas().remove(i);
-						}
-						}
-						
-					}
-					
-					
+					}	
 				}
 				
 				if (j2chic == true) {
@@ -850,40 +851,10 @@ public class Main extends PApplet implements OnMessageListener{
 					if(coords.getType().contains("paw")) {
 						pollito2.agregarBalas();
 					}
-					//daño de las balas al oponente y desaparicion de balas cuando le caen al jugador opuesto
-					for(int i = 0; i < pollito2.getBalas().size(); i++) {
-						Bullet bala = pollito2.getBalas().get(i);
-						
-						if(j1pig) {
-						if(dist(bala.getPx(), bala.getPy(), cerdito1.getPosx(), cerdito1.getPosy()) < 50) {
-							cerdito1.setVida(cerdito1.getVida() - danno);
-							pollito2.getBalas().remove(i);
-						}
-						}
-						
-						if(j1chic) {
-						if(dist(bala.getPx(), bala.getPy(), pollito1.getPosx(), pollito1.getPosy()) < 50) {
-							pollito1.setVida(pollito1.getVida() - danno);
-							pollito2.getBalas().remove(i);
-						}
-						}
-						
-						if(j1elef) {
-						if(dist(bala.getPx(), bala.getPy(), elefantico1.getPosx(), elefantico1.getPosy()) < 50) {
-							elefantico1.setVida(elefantico1.getVida() - danno);
-							pollito2.getBalas().remove(i);
-						}
-						}
-						
-					}
-				
 				}
-				
 			}
 			
 		break;
 		}
 	}
-	
-
 }
