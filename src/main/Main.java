@@ -29,8 +29,7 @@ public class Main extends PApplet implements OnMessageListener{
 	
 	
 	Boolean j1pig = false, j1elef = false, j1chic = false, j1live = false, 
-			j2pig = false, j2elef = false, j2chic = false, j2live = false, 
-			cayendo = false;
+			j2pig = false, j2elef = false, j2chic = false, j2live = false;
 
 	private TCPSingletonJ1 tcpJ1;
 	private TCPSingletonJ2 tcpJ2;
@@ -546,11 +545,9 @@ public class Main extends PApplet implements OnMessageListener{
 		case 1:
 			//pantalla controles
 			
-			
 			//debe de haber 2 controles conectados
 			//boton jugar
 			if(mouseX > 930 && mouseX < 1030 && mouseY > 10 && mouseY < 53) {
-
 
 				if(players >= 1) {
 					pantalla = 0;
@@ -590,9 +587,42 @@ public class Main extends PApplet implements OnMessageListener{
 						j2pig == true || j2elef == true || j2chic == true ) {
 							
 							pantalla = 4;
+							
+							////player one
 							tcpJ1.enviarMensaje("play");
+							//pintar jugador cerdo en el control
+							if(j1pig==true) {
+								
+								tcpJ1.enviarMensaje("chosenPig");
+							}
+							//pintar jugador gallo en el control
+							if(j1chic==true) {
+								
+								tcpJ1.enviarMensaje("chosenChic");
+							}
+							//pintar jugador elefante en control
+							if(j1elef==true) {
+								
+								tcpJ1.enviarMensaje("chosenElef");
+							}
+							
+							////player one
 							tcpJ2.enviarMensaje("play");
-							cayendo = true;
+							//pintar jugador cerdo en el control
+							if(j2pig==true) {
+								
+								tcpJ2.enviarMensaje("chosenPig");
+							}
+							//pintar jugador gallo en el control
+							if(j2chic==true) {
+								
+								tcpJ2.enviarMensaje("chosenChic");
+							}
+							//pintar jugador elefante en control
+							if(j2elef==true) {
+								
+								tcpJ2.enviarMensaje("chosenElef");
+							}
 				}
 			}
 			
