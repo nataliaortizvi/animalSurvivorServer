@@ -31,6 +31,8 @@ public class Main extends PApplet implements OnMessageListener{
 	Boolean j1pig = false, j1elef = false, j1chic = false, j1live = false, 
 			j2pig = false, j2elef = false, j2chic = false, j2live = false,
 			pigwin = false, pollowin = false, elefwin = false;
+	
+	Boolean salto1 = false, salto2 = false, salto3 = false;
 
 	private TCPSingletonJ1 tcpJ1;
 	private TCPSingletonJ2 tcpJ2;
@@ -781,7 +783,6 @@ public class Main extends PApplet implements OnMessageListener{
 			
 			//si se mueve el jugador 1
 			if (jugadors.contains("Jugador1")) {
-				//moverJ1 
 				
 				
 				if (j1pig == true) {
