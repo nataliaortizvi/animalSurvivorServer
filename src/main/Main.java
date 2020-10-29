@@ -586,21 +586,21 @@ public class Main extends PApplet implements OnMessageListener{
 						Bullet bala = cerdito1.getBalas().get(i);
 						
 						if(j2pig) {
-							if(dist(bala.getPx(), bala.getPy(), cerdito2.getPosx(), cerdito2.getPosy()) < 50) {
+							if(dist(bala.getPx(), bala.getPy(), cerdito2.getPosx(), cerdito2.getPosy()) < 100) {
 								cerdito2.setVida(cerdito2.getVida() + danno);
 								cerdito1.getBalas().remove(i);
 							}
 						}
 						
 						if(j2chic) {
-						if(dist(bala.getPx(), bala.getPy(), pollito2.getPosx(), pollito2.getPosy()) < 50) {
+						if(dist(bala.getPx(), bala.getPy(), pollito2.getPosx(), pollito2.getPosy()) < 100) {
 							pollito2.setVida(pollito2.getVida() + danno);
 							cerdito1.getBalas().remove(i);
 							}
 						}
 						
 						if(j2elef) {
-						if(dist(bala.getPx(), bala.getPy(), elefantico2.getPosx(), elefantico2.getPosy()) < 50) {
+						if(dist(bala.getPx(), bala.getPy(), elefantico2.getPosx(), elefantico2.getPosy()) < 100) {
 							elefantico2.setVida(elefantico2.getVida() + danno);
 							cerdito1.getBalas().remove(i);
 							}
@@ -611,7 +611,7 @@ public class Main extends PApplet implements OnMessageListener{
 					
 					
 					
-					if (mapabw.get((int) cerdito1.getPosx(), (int) cerdito1.getPosy()+77) == color(255,255,255)) {
+					if (mapabw.get((int) cerdito1.getPosx()+38, (int) cerdito1.getPosy()+77) == color(255,255,255)) {
 						System.out.println("cerditoooY:"+" "+cerdito1.getPosy()+77);
 
 						//movimiento
@@ -654,21 +654,21 @@ public class Main extends PApplet implements OnMessageListener{
 						Bullet bala = elefantico1.getBalas().get(i);
 						
 						if(j2pig) {
-						if(dist(bala.getPx(), bala.getPy(), cerdito2.getPosx(), cerdito2.getPosy()) < 50) {
+						if(dist(bala.getPx(), bala.getPy(), cerdito2.getPosx(), cerdito2.getPosy()) < 100) {
 							cerdito2.setVida(cerdito2.getVida() + danno);
 							elefantico1.getBalas().remove(i);
 						}
 						}
 						
 						if(j2chic) {
-						if(dist(bala.getPx(), bala.getPy(), pollito2.getPosx(), pollito2.getPosy()) < 50) {
+						if(dist(bala.getPx(), bala.getPy(), pollito2.getPosx(), pollito2.getPosy()) < 100) {
 							pollito2.setVida(pollito2.getVida() + danno);
 							elefantico1.getBalas().remove(i);
 						}
 						}
 						
 						if(j2elef) {
-						if(dist(bala.getPx(), bala.getPy(), elefantico2.getPosx(), elefantico2.getPosy()) < 50) {
+						if(dist(bala.getPx(), bala.getPy(), elefantico2.getPosx(), elefantico2.getPosy()) < 100) {
 							elefantico2.setVida(elefantico2.getVida() + danno);
 							elefantico1.getBalas().remove(i);
 						}
@@ -705,21 +705,21 @@ public class Main extends PApplet implements OnMessageListener{
 						Bullet bala = pollito1.getBalas().get(i);
 						
 						if(j2pig) {
-						if(dist(bala.getPx(), bala.getPy(), cerdito2.getPosx(), cerdito2.getPosy()) < 50) {
+						if(dist(bala.getPx(), bala.getPy(), cerdito2.getPosx(), cerdito2.getPosy()) < 100) {
 							cerdito2.setVida(cerdito2.getVida() + danno);
 							pollito1.getBalas().remove(i);
 						}
 						}
 						
 						if(j2chic) {
-						if(dist(bala.getPx(), bala.getPy(), pollito2.getPosx(), pollito2.getPosy()) < 50) {
+						if(dist(bala.getPx(), bala.getPy(), pollito2.getPosx(), pollito2.getPosy()) < 100) {
 							pollito2.setVida(pollito2.getVida() + danno);
 							pollito1.getBalas().remove(i);
 						}
 						}
 						
 						if(j2elef) {
-						if(dist(bala.getPx(), bala.getPy(), elefantico2.getPosx(), elefantico2.getPosy()) < 50) {
+						if(dist(bala.getPx(), bala.getPy(), elefantico2.getPosx(), elefantico2.getPosy()) < 100) {
 							elefantico2.setVida(elefantico2.getVida() + danno);
 							pollito1.getBalas().remove(i);
 						}
@@ -760,21 +760,21 @@ public class Main extends PApplet implements OnMessageListener{
 						Bullet bala = cerdito2.getBalas().get(i);
 						
 						if(j1pig) {
-						if(dist(bala.getPx(), bala.getPy(), cerdito1.getPosx(), cerdito1.getPosy()) < 50) {
+						if(dist(bala.getPx(), bala.getPy(), cerdito1.getPosx(), cerdito1.getPosy()) < 100) {
 							cerdito1.setVida(cerdito2.getVida() - danno);
 							cerdito2.getBalas().remove(i);
 						}
 						}
 						
 						if(j1chic) {
-						if(dist(bala.getPx(), bala.getPy(), pollito1.getPosx(), pollito1.getPosy()) < 50) {
+						if(dist(bala.getPx(), bala.getPy(), pollito1.getPosx(), pollito1.getPosy()) < 100) {
 							pollito1.setVida(pollito2.getVida() - danno);
 							cerdito2.getBalas().remove(i);
 						}
 						}
 						
 						if(j1elef) {
-						if(dist(bala.getPx(), bala.getPy(), elefantico1.getPosx(), elefantico1.getPosy()) < 50) {
+						if(dist(bala.getPx(), bala.getPy(), elefantico1.getPosx(), elefantico1.getPosy()) < 100) {
 							elefantico1.setVida(elefantico2.getVida() - danno);
 							cerdito2.getBalas().remove(i);
 						}
@@ -808,21 +808,21 @@ public class Main extends PApplet implements OnMessageListener{
 						Bullet bala = elefantico2.getBalas().get(i);
 						
 						if(j1pig) {
-						if(dist(bala.getPx(), bala.getPy(), cerdito1.getPosx(), cerdito1.getPosy()) < 50) {
+						if(dist(bala.getPx(), bala.getPy(), cerdito1.getPosx(), cerdito1.getPosy()) < 100) {
 							cerdito1.setVida(cerdito1.getVida() - danno);
 							elefantico2.getBalas().remove(i);
 						}
 						}
 						
 						if(j1chic) {
-						if(dist(bala.getPx(), bala.getPy(), pollito1.getPosx(), pollito1.getPosy()) < 50) {
+						if(dist(bala.getPx(), bala.getPy(), pollito1.getPosx(), pollito1.getPosy()) < 100) {
 							pollito1.setVida(pollito1.getVida() - danno);
 							elefantico2.getBalas().remove(i);
 						}
 						}
 						
 						if(j1elef) {
-						if(dist(bala.getPx(), bala.getPy(), elefantico1.getPosx(), elefantico1.getPosy()) < 50) {
+						if(dist(bala.getPx(), bala.getPy(), elefantico1.getPosx(), elefantico1.getPosy()) < 100) {
 							elefantico1.setVida(elefantico1.getVida() - danno);
 							elefantico2.getBalas().remove(i);
 						}
@@ -855,21 +855,21 @@ public class Main extends PApplet implements OnMessageListener{
 						Bullet bala = pollito2.getBalas().get(i);
 						
 						if(j1pig) {
-						if(dist(bala.getPx(), bala.getPy(), cerdito1.getPosx(), cerdito1.getPosy()) < 50) {
+						if(dist(bala.getPx(), bala.getPy(), cerdito1.getPosx(), cerdito1.getPosy()) < 100) {
 							cerdito1.setVida(cerdito1.getVida() - danno);
 							pollito2.getBalas().remove(i);
 						}
 						}
 						
 						if(j1chic) {
-						if(dist(bala.getPx(), bala.getPy(), pollito1.getPosx(), pollito1.getPosy()) < 50) {
+						if(dist(bala.getPx(), bala.getPy(), pollito1.getPosx(), pollito1.getPosy()) < 100) {
 							pollito1.setVida(pollito1.getVida() - danno);
 							pollito2.getBalas().remove(i);
 						}
 						}
 						
 						if(j1elef) {
-						if(dist(bala.getPx(), bala.getPy(), elefantico1.getPosx(), elefantico1.getPosy()) < 50) {
+						if(dist(bala.getPx(), bala.getPy(), elefantico1.getPosx(), elefantico1.getPosy()) < 100) {
 							elefantico1.setVida(elefantico1.getVida() - danno);
 							pollito2.getBalas().remove(i);
 						}
