@@ -271,12 +271,14 @@ public class Main extends PApplet implements OnMessageListener{
 			if(j1pig==true) {
 				tcpJ1.enviarMensaje("chosenPig");
 				
+				
 				cerdito1.pintar();
 				cerdito1.pintarBalas();
 				image(vidaPig, 4,11,40,40);
 				fill(70,355,70);
 				noStroke();
 				rect(51,(float) 27.5,cerdito1.getVida(),10);
+				
 				
 				//daño de las balas al oponente y desaparicion de balas cuando le caen al jugador opuesto
 				for(int i = 0; i < cerdito1.getBalas().size(); i++) {
@@ -813,12 +815,29 @@ public class Main extends PApplet implements OnMessageListener{
 						//movimiento
 						cerdito1.setPosy(coords.getPosy());
 						cerdito1.setPosx(coords.getPosx());
+						//tcpJ1.enviarMensaje("newPosY_"+cerdito1.getPosy());
+						System.out.println(cerdito1.getPosy());
+						
 						
 					} else {
 						
 						cerdito1.setPosx(coords.getPosx());
 						
 					}
+					
+					if (mapabw.get((int) cerdito1.getPosx()+38, (int) cerdito1.getPosy()-100) == color(255,255,255)) {
+
+						
+					
+
+						//movimiento
+						cerdito1.setPosy(coords.getPosy());
+						
+						
+						System.out.println(cerdito1.getPosy());
+						
+						
+					} 
 				}
 				
 				if (j1elef == true) {
