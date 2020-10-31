@@ -836,12 +836,6 @@ public class Main extends PApplet implements OnMessageListener{
 			                    }
 			                 }
 			              ).start();
-<<<<<<< HEAD
-=======
-				
->>>>>>> 1ba782d7f8479fef5366e52cf6c33cdc92df899e
-						
-					} else {
 						cerdito1.setPosx(coords.getPosx());
 						
 						noPuede = false;
@@ -849,10 +843,6 @@ public class Main extends PApplet implements OnMessageListener{
 						if(coords.getType().contains("ap")) {
 							cerdito1.setPosy(cerdito1.getPosy()-coords.getPosy());
 						}
-<<<<<<< HEAD
-=======
-						
->>>>>>> 1ba782d7f8479fef5366e52cf6c33cdc92df899e
 					}
 				}
 				
