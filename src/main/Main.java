@@ -16,7 +16,7 @@ import processing.core.PImage;
 
 public class Main extends PApplet implements OnMessageListener{
 	
-	int pantalla, gameTime= 120, players = 0, danno = 5;
+	int pantalla, gameTime= 320, players = 0, danno = 5;
 	PImage pantUno, prim, primP, pantInicio, pantPlayer, pantControl, pantInstru, pantJuego, pantGanador, jugar, jugarP,
 	instru, instruP, contro, controP, pasto, atras, atrasP, jugarPP, jugarPPP, player1, player2,
 	vidaPig, vidaElef, vidaPollo, mapabw, cerditu, pollitu, elefanticu;
@@ -37,9 +37,12 @@ public class Main extends PApplet implements OnMessageListener{
 	private TCPSingletonJ1 tcpJ1;
 	private TCPSingletonJ2 tcpJ2;
 	
+	Boolean noPuede = false;
+	
 
 	
-	private float xJ1=50, yJ1=350, xJ2=960, yJ2=350;
+	private float xJ1=50, yJ1=320, xJ2=960, yJ2=320;
+	private float gravity = (float) 0.5;
 	
 
 	public static void main(String[] args) {
@@ -80,6 +83,9 @@ public class Main extends PApplet implements OnMessageListener{
 					}
 				}
 			).start();
+			
+			
+			
 		
 		
 		
@@ -264,13 +270,12 @@ public class Main extends PApplet implements OnMessageListener{
 		case 4:
 			//pantalla de juego
 			image(mapabw, 0, 0);
-			image(pantJuego,0,0);
+			//image(pantJuego,0,0);
 			
 			
 			//pintar jugador 1
 			if(j1pig==true) {
 				tcpJ1.enviarMensaje("chosenPig");
-				
 				
 				cerdito1.pintar();
 				cerdito1.pintarBalas();
@@ -278,7 +283,6 @@ public class Main extends PApplet implements OnMessageListener{
 				fill(70,355,70);
 				noStroke();
 				rect(51,(float) 27.5,cerdito1.getVida(),10);
-				
 				
 				//daño de las balas al oponente y desaparicion de balas cuando le caen al jugador opuesto
 				for(int i = 0; i < cerdito1.getBalas().size(); i++) {
@@ -293,7 +297,6 @@ public class Main extends PApplet implements OnMessageListener{
 					if(dist(bala.getPx(), bala.getPy(), pollito2.getPosx(), pollito2.getPosy()) < 40) {
 						pollito2.setVida(pollito2.getVida() + danno);
 						cerdito1.getBalas().remove(i);
-						
 						
 					}
 				}
@@ -782,7 +785,6 @@ public class Main extends PApplet implements OnMessageListener{
 			CoorAnimal coords = gsons.fromJson(mensajes, CoorAnimal.class);
 			
 			
-			
 			//si se mueve el jugador 1
 			if (jugadors.contains("Jugador1")) {
 				
@@ -804,40 +806,56 @@ public class Main extends PApplet implements OnMessageListener{
 					
 					
 					
-					
-					
-					
-					if (mapabw.get((int) cerdito1.getPosx()+38, (int) cerdito1.getPosy()+77) == color(255,255,255)) {
-
-				
-						System.out.println("cerditoooY:"+" "+cerdito1.getPosy()+77);
-
-						//movimiento
-						cerdito1.setPosy(coords.getPosy());
-						cerdito1.setPosx(coords.getPosx());
-						//tcpJ1.enviarMensaje("newPosY_"+cerdito1.getPosy());
-						System.out.println(cerdito1.getPosy());
+					if (mapabw.get((int) cerdito1.getPosx()+35, (int) cerdito1.getPosy()+75) == color(255,255,255)) {
 						
+						cerdito1.setPosx(coords.getPosx());
+						System.out.println("cerdo esta aqui  "+ cerdito1.getPosy());
+						
+						
+						if(coords.getType().contains("ap")) {
+							cerdito1.setPosy(cerdito1.getPosy()-coords.getPosy());
+							noPuede = false;
+						}else {
+							noPuede = true;
+						}
+						
+						new Thread(
+			                    ()->{
+			                    	while(noPuede == true){
+			                    		if (mapabw.get((int) cerdito1.getPosx()+35, (int) cerdito1.getPosy()+75) == color(255,255,255)) {
+			                    			//System.out.println("estoy bajando  "+gravity);
+			                    			cerdito1.setPosy(cerdito1.getPosy()+gravity);
+			                    		}
+			                    		
+			                    	try {
+										Thread.sleep(30);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+			                    }
+			                 }
+			              ).start();
+						
+						/*if(coords.getType().contains("dawn")) {
+							cerdito1.setPosy(cerdito1.getPosy()+coords.getPosy());
+						}*/
 						
 					} else {
-						
 						cerdito1.setPosx(coords.getPosx());
 						
+						noPuede = false;
+						
+						if(coords.getType().contains("ap")) {
+							cerdito1.setPosy(cerdito1.getPosy()-coords.getPosy());
+						}
+						
+						/*if (mapabw.get((int) cerdito1.getPosx()+38, (int) cerdito1.getPosy()+50) == color(255,255,255)) {
+							if(coords.getType().contains("dawn")) {
+								cerdito1.setPosy(cerdito1.getPosy()+coords.getPosy());
+							}
+						}*/
 					}
-					
-					if (mapabw.get((int) cerdito1.getPosx()+38, (int) cerdito1.getPosy()-100) == color(255,255,255)) {
-
-						
-					
-
-						//movimiento
-						cerdito1.setPosy(coords.getPosy());
-						
-						
-						System.out.println(cerdito1.getPosy());
-						
-						
-					} 
 				}
 				
 				if (j1elef == true) {
