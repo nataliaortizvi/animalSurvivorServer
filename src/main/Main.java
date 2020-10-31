@@ -39,6 +39,8 @@ public class Main extends PApplet implements OnMessageListener{
 	
 	Boolean noPuede = false;
 	Boolean noPuede2 = false;
+	Boolean noPuede3 = false;
+	Boolean noPuede4 = false;
 	
 
 	
@@ -1050,10 +1052,7 @@ if 					(mapabw.get((int) pollito1.getPosx()+35, (int) pollito1.getPosy()+75) ==
 				
 				
 				if (j2elef == true) {
-					//movimiento
-					elefantico2.setPosx(coords.getPosx());
-					elefantico2.setPosy(coords.getPosy());
-					
+				
 					System.out.println(elefantico2.getPosy());
 					
 					//direccion
@@ -1066,7 +1065,52 @@ if 					(mapabw.get((int) pollito1.getPosx()+35, (int) pollito1.getPosy()+75) ==
 					
 					//disparo
 					if(coords.getType().contains("paw")) {
-
+						elefantico2.agregarBalas();
+					}
+					
+					if (mapabw.get((int) elefantico2.getPosx()+35, (int) elefantico2.getPosy()+75) == color(255,255,255)) {
+						
+						elefantico2.setPosx(coords.getPosx());
+						System.out.println("ele2 esta aqui  "+ elefantico2.getPosy());
+						
+						
+						if(coords.getType().contains("ap")) {
+							elefantico2.setPosy(elefantico2.getPosy()-coords.getPosy());
+							noPuede3 = false;
+						}else {
+							noPuede3 = true;
+						}
+						
+						new Thread(
+			                    ()->{
+			                    	while(noPuede3 == true){
+			                    		if (mapabw.get((int) elefantico2.getPosx()+35, (int) elefantico2.getPosy()+75) == color(255,255,255)) {
+			                    			//System.out.println("estoy bajando  "+gravity);
+			                    			elefantico2.setPosy(elefantico2.getPosy()+gravity);
+			                    		}
+			                    		
+			                    	try {
+										Thread.sleep(30);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+			                    }
+			                 }
+			              ).start();
+						
+					
+						
+					} else {
+						elefantico2.setPosx(coords.getPosx());
+						
+						noPuede3 = false;
+						
+						if(coords.getType().contains("ap")) {
+							elefantico2.setPosy(elefantico2.getPosy()-coords.getPosy());
+						}
+						
+						
 					}
 
 					}	
@@ -1091,7 +1135,50 @@ if 					(mapabw.get((int) pollito1.getPosx()+35, (int) pollito1.getPosy()+75) ==
 						pollito2.agregarBalas();
 					}
 
-				
+					if (mapabw.get((int) pollito2.getPosx()+35, (int) pollito2.getPosy()+75) == color(255,255,255)) {
+						
+						pollito2.setPosx(coords.getPosx());
+						System.out.println("chic2 esta aqui  "+ pollito2.getPosy());
+						
+						
+						if(coords.getType().contains("ap")) {
+							pollito2.setPosy(pollito2.getPosy()-coords.getPosy());
+							noPuede4 = false;
+						}else {
+							noPuede4 = true;
+						}
+						
+						new Thread(
+			                    ()->{
+			                    	while(noPuede4 == true){
+			                    		if (mapabw.get((int) pollito2.getPosx()+35, (int) pollito2.getPosy()+75) == color(255,255,255)) {
+			                    			//System.out.println("estoy bajando  "+gravity);
+			                    			pollito2.setPosy(pollito2.getPosy()+gravity);
+			                    		}
+			                    		
+			                    	try {
+										Thread.sleep(30);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+			                    }
+			                 }
+			              ).start();
+						
+					
+						
+					} else {
+						pollito2.setPosx(coords.getPosx());
+						
+						noPuede4 = false;
+						
+						if(coords.getType().contains("ap")) {
+							pollito2.setPosy(pollito2.getPosy()-coords.getPosy());
+						}
+						
+						
+					}
 				}
 			}
 			
