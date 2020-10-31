@@ -38,6 +38,7 @@ public class Main extends PApplet implements OnMessageListener{
 	private TCPSingletonJ2 tcpJ2;
 	
 	Boolean noPuede = false;
+	Boolean noPuede2 = false;
 	
 
 	
@@ -836,6 +837,12 @@ public class Main extends PApplet implements OnMessageListener{
 			                    }
 			                 }
 			              ).start();
+						
+						/*if(coords.getType().contains("dawn")) {
+							cerdito1.setPosy(cerdito1.getPosy()+coords.getPosy());
+						}*/
+						
+					} else {
 						cerdito1.setPosx(coords.getPosx());
 						
 						noPuede = false;
@@ -843,10 +850,17 @@ public class Main extends PApplet implements OnMessageListener{
 						if(coords.getType().contains("ap")) {
 							cerdito1.setPosy(cerdito1.getPosy()-coords.getPosy());
 						}
+						
+						/*if (mapabw.get((int) cerdito1.getPosx()+38, (int) cerdito1.getPosy()+50) == color(255,255,255)) {
+							if(coords.getType().contains("dawn")) {
+								cerdito1.setPosy(cerdito1.getPosy()+coords.getPosy());
+							}
+						}*/
 					}
 				}
 				
 				if (j1elef == true) {
+					
 					//direccion
 					if(coords.getType().contains("left")) {
 						elefantico1.setDir(2);
@@ -859,53 +873,6 @@ public class Main extends PApplet implements OnMessageListener{
 					if(coords.getType().contains("paw")) {
 						elefantico1.agregarBalas();
 					}
-					
-
-					if (mapabw.get((int) elefantico1.getPosx()+35, (int) elefantico1.getPosy()+75) == color(255,255,255)) {
-						
-						elefantico1.setPosx(coords.getPosx());
-						System.out.println("Ele esta aqui  "+ elefantico1.getPosy());
-						
-						
-						if(coords.getType().contains("ap")) {
-							elefantico1.setPosy(elefantico1.getPosy()-coords.getPosy());
-							noPuede = false;
-						}else {
-							noPuede = true;
-						}
-						
-						new Thread(
-			                    ()->{
-			                    	while(noPuede == true){
-			                    		if (mapabw.get((int) elefantico1.getPosx()+35, (int) elefantico1.getPosy()+75) == color(255,255,255)) {
-			                    			//System.out.println("estoy bajando  "+gravity);
-			                    			elefantico1.setPosy(elefantico1.getPosy()+gravity);
-			                    		}
-			                    		
-			                    	try {
-										Thread.sleep(30);
-									} catch (InterruptedException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-			                    }
-			                 }
-			              ).start();
-						
-						
-						
-					} else {
-						elefantico1.setPosx(coords.getPosx());
-						
-						noPuede = false;
-						
-						if(coords.getType().contains("ap")) {
-							elefantico1.setPosy(elefantico1.getPosy()-coords.getPosy());
-						}
-						
-						
-					}
-
 
 					if (mapabw.get((int) elefantico1.getPosx()+35, (int) elefantico1.getPosy()+75) == color(255,255,255)) {
 						
@@ -947,14 +914,11 @@ public class Main extends PApplet implements OnMessageListener{
 							elefantico1.setPosy(elefantico1.getPosy()-coords.getPosy());
 						}
 
+
 					}
 				}
 				
 				if (j1chic == true) {
-					
-					//movimiento
-					pollito1.setPosx(coords.getPosx());
-					pollito1.setPosy(coords.getPosy());
 					
 					
 					//direccion
@@ -969,6 +933,49 @@ public class Main extends PApplet implements OnMessageListener{
 					if(coords.getType().contains("paw")) {
 						pollito1.agregarBalas();
 					}
+					
+if 					(mapabw.get((int) pollito1.getPosx()+35, (int) pollito1.getPosy()+75) == color(255,255,255)) {
+						
+						pollito1.setPosx(coords.getPosx());
+						System.out.println("chic esta aqui  "+ pollito1.getPosy());
+						
+						
+						if(coords.getType().contains("ap")) {
+							pollito1.setPosy(pollito1.getPosy()-coords.getPosy());
+							noPuede = false;
+						}else {
+							noPuede = true;
+						}
+						
+						new Thread(
+			                    ()->{
+			                    	while(noPuede == true){
+			                    		if (mapabw.get((int) pollito1.getPosx()+35, (int) pollito1.getPosy()+75) == color(255,255,255)) {
+			                    			//System.out.println("estoy bajando  "+gravity);
+			                    			pollito1.setPosy(pollito1.getPosy()+gravity);
+			                    		}
+			                    		
+			                    	try {
+										Thread.sleep(30);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+			                    }
+			                 }
+			              ).start();
+						
+					} else {
+						pollito1.setPosx(coords.getPosx());
+						
+						noPuede = false;
+						
+						if(coords.getType().contains("ap")) {
+							pollito1.setPosy(pollito1.getPosy()-coords.getPosy());
+						}
+
+
+					}
 
 				}
 			}
@@ -978,10 +985,6 @@ public class Main extends PApplet implements OnMessageListener{
 				//moverJ2
 				
 				if (j2pig == true) {
-					
-					//movimiento
-					cerdito2.setPosx(coords.getPosx());
-					cerdito2.setPosy(coords.getPosy());
 					
 					//direccion
 					if(coords.getType().contains("left")) {
@@ -995,7 +998,54 @@ public class Main extends PApplet implements OnMessageListener{
 					if(coords.getType().contains("paw")) {
 						cerdito2.agregarBalas();
 
-					}	
+					}
+					
+					if (mapabw.get((int) cerdito2.getPosx()+35, (int) cerdito2.getPosy()+75) == color(255,255,255)) {
+						
+						cerdito2.setPosx(coords.getPosx());
+						System.out.println("cerdo esta aqui  "+ cerdito2.getPosy());
+						
+						
+						if(coords.getType().contains("ap")) {
+							cerdito2.setPosy(cerdito2.getPosy()-coords.getPosy());
+							noPuede2 = false;
+						}else {
+							noPuede2 = true;
+						}
+						
+						new Thread(
+			                    ()->{
+			                    	while(noPuede2 == true){
+			                    		if (mapabw.get((int) cerdito2.getPosx()+35, (int) cerdito2.getPosy()+75) == color(255,255,255)) {
+			                    			//System.out.println("estoy bajando  "+gravity);
+			                    			cerdito2.setPosy(cerdito2.getPosy()+gravity);
+			                    		}
+			                    		
+			                    	try {
+										Thread.sleep(30);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+			                    }
+			                 }
+			              ).start();
+						
+					
+						
+					} else {
+						cerdito2.setPosx(coords.getPosx());
+						
+						noPuede2 = false;
+						
+						if(coords.getType().contains("ap")) {
+							cerdito2.setPosy(cerdito2.getPosy()-coords.getPosy());
+						}
+						
+						
+					}
+					
+				}
 
 				
 				
@@ -1018,14 +1068,10 @@ public class Main extends PApplet implements OnMessageListener{
 					if(coords.getType().contains("paw")) {
 
 					}
-					
-			
-					
-					
 
 					}	
 
-				}
+				
 				
 				if (j2chic == true) {
 					//movimiento
