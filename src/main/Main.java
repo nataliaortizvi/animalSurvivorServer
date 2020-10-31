@@ -868,53 +868,6 @@ public class Main extends PApplet implements OnMessageListener{
 						elefantico1.agregarBalas();
 					}
 					
-					if (mapabw.get((int) elefantico1.getPosx()+35, (int) elefantico1.getPosy()+75) == color(255,255,255)) {
-						
-						elefantico1.setPosx(coords.getPosx());
-						System.out.println("Ele esta aqui  "+ elefantico1.getPosy());
-						
-						
-						if(coords.getType().contains("ap")) {
-							elefantico1.setPosy(elefantico1.getPosy()-coords.getPosy());
-							noPuede = false;
-						}else {
-							noPuede = true;
-						}
-						
-						new Thread(
-			                    ()->{
-			                    	while(noPuede == true){
-			                    		if (mapabw.get((int) elefantico1.getPosx()+35, (int) elefantico1.getPosy()+75) == color(255,255,255)) {
-			                    			//System.out.println("estoy bajando  "+gravity);
-			                    			elefantico1.setPosy(elefantico1.getPosy()+gravity);
-			                    		}
-			                    		
-			                    	try {
-										Thread.sleep(30);
-									} catch (InterruptedException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-			                    }
-			                 }
-			              ).start();
-						
-						
-						
-					} else {
-						elefantico1.setPosx(coords.getPosx());
-						
-						noPuede = false;
-						
-						if(coords.getType().contains("ap")) {
-							elefantico1.setPosy(elefantico1.getPosy()-coords.getPosy());
-						}
-						
-						
-					}
-
-					
-
 					}
 				
 				
