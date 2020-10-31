@@ -11,6 +11,7 @@ import clasesEclipse.Elephant;
 import clasesEclipse.Pig;
 import modelo.CoorAnimal;
 import modelo.NameAnimal;
+import modelo.Ventajas;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -46,6 +47,8 @@ public class Main extends PApplet implements OnMessageListener{
 	
 	private float xJ1=50, yJ1=320, xJ2=960, yJ2=320;
 	private float gravity = (float) 0.5;
+	
+	String ventajas;
 	
 
 	public static void main(String[] args) {
@@ -563,18 +566,27 @@ public class Main extends PApplet implements OnMessageListener{
 			text(gameTime, 572,43);
 			
 			
+			
+			
 			if(pigwin == true) {
-				image(cerditu,460,20);
+				image(cerditu,448,20);
+				ventajas = "cerdito";
+				tcpJ1.enviarMensaje(ventajas);
+				tcpJ2.enviarMensaje(ventajas);
+				
 			}
 			if(pollowin == true) {
 				image(pollitu,460,20);
+				ventajas = "pollito";
+				tcpJ1.enviarMensaje(ventajas);
+				tcpJ2.enviarMensaje(ventajas);
 			}
 			if(elefwin == true) {
-				image(elefanticu,460,23);
+				image(elefanticu,450,23);
+				ventajas = "elefantito";
+				tcpJ1.enviarMensaje(ventajas);
+				tcpJ2.enviarMensaje(ventajas);
 			}
-			
-		
-			
 			
 			
 			image(pasto,0,385);
