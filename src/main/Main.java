@@ -112,7 +112,7 @@ public class Main extends PApplet implements OnMessageListener{
 		jugarPP = loadImage("img/jugarP.png");
 		jugarPPP = loadImage("img/jugarPP.png");
 		pantControl = loadImage("img/control.png");
-		pantJuego = loadImage("img/pantallaJuego.png");
+		pantJuego = loadImage("img/pantJuego.png");
 		pantGanador = loadImage("img/pantallaGanador.png");
 		jugar = loadImage("img/jugar.png");
 		jugarP = loadImage("img/jugarPress.png");
@@ -270,7 +270,7 @@ public class Main extends PApplet implements OnMessageListener{
 		case 4:
 			//pantalla de juego
 			image(mapabw, 0, 0);
-			//image(pantJuego,0,0);
+			image(pantJuego,0,0);
 			
 			
 			//pintar jugador 1
@@ -836,10 +836,7 @@ public class Main extends PApplet implements OnMessageListener{
 			                    }
 			                 }
 			              ).start();
-						
-						/*if(coords.getType().contains("dawn")) {
-							cerdito1.setPosy(cerdito1.getPosy()+coords.getPosy());
-						}*/
+				
 						
 					} else {
 						cerdito1.setPosx(coords.getPosx());
@@ -850,11 +847,6 @@ public class Main extends PApplet implements OnMessageListener{
 							cerdito1.setPosy(cerdito1.getPosy()-coords.getPosy());
 						}
 						
-						/*if (mapabw.get((int) cerdito1.getPosx()+38, (int) cerdito1.getPosy()+50) == color(255,255,255)) {
-							if(coords.getType().contains("dawn")) {
-								cerdito1.setPosy(cerdito1.getPosy()+coords.getPosy());
-							}
-						}*/
 					}
 				}
 				
@@ -874,6 +866,51 @@ public class Main extends PApplet implements OnMessageListener{
 					//disparo
 					if(coords.getType().contains("paw")) {
 						elefantico1.agregarBalas();
+					}
+					
+					if (mapabw.get((int) elefantico1.getPosx()+35, (int) elefantico1.getPosy()+75) == color(255,255,255)) {
+						
+						elefantico1.setPosx(coords.getPosx());
+						System.out.println("Ele esta aqui  "+ elefantico1.getPosy());
+						
+						
+						if(coords.getType().contains("ap")) {
+							elefantico1.setPosy(elefantico1.getPosy()-coords.getPosy());
+							noPuede = false;
+						}else {
+							noPuede = true;
+						}
+						
+						new Thread(
+			                    ()->{
+			                    	while(noPuede == true){
+			                    		if (mapabw.get((int) elefantico1.getPosx()+35, (int) elefantico1.getPosy()+75) == color(255,255,255)) {
+			                    			//System.out.println("estoy bajando  "+gravity);
+			                    			elefantico1.setPosy(elefantico1.getPosy()+gravity);
+			                    		}
+			                    		
+			                    	try {
+										Thread.sleep(30);
+									} catch (InterruptedException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
+									}
+			                    }
+			                 }
+			              ).start();
+						
+						
+						
+					} else {
+						elefantico1.setPosx(coords.getPosx());
+						
+						noPuede = false;
+						
+						if(coords.getType().contains("ap")) {
+							elefantico1.setPosy(elefantico1.getPosy()-coords.getPosy());
+						}
+						
+						
 					}
 
 					
