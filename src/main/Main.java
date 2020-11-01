@@ -11,7 +11,7 @@ import clasesEclipse.Elephant;
 import clasesEclipse.Pig;
 import modelo.CoorAnimal;
 import modelo.NameAnimal;
-import modelo.Ventajas;
+//import modelo.Ventajas;
 import processing.core.PApplet;
 import processing.core.PImage;
 
@@ -20,7 +20,7 @@ public class Main extends PApplet implements OnMessageListener{
 	int pantalla, gameTime= 320, players = 0, danno = 5, equis = 0;
 	PImage pantUno, prim, primP, pantInicio, pantPlayer, pantControl, pantInstru, pantJuego, pantGanador, jugar, jugarP,
 	instru, instruP, contro, controP, pasto, atras, atrasP, jugarPP, jugarPPP, player1, player2,
-	vidaPig, vidaElef, vidaPollo, mapabw, cerditu, pollitu, elefanticu;
+	vidaPig, vidaElef, vidaPollo, mapabw, cerditu, pollitu, elefanticu, ganoelpollo, ganoelcerdo, ganoelelef, perdiopollo, perdiocerdo, perdioelef;
 	
 	String ip, j1,j2;
 	Pig cerdito1, cerdito2;
@@ -136,6 +136,12 @@ public class Main extends PApplet implements OnMessageListener{
 		cerditu = loadImage("img/cerdoChiqui.png");
 		pollitu = loadImage("img/galloChiqui.png");
 		elefanticu = loadImage("img/elefanteChiqui.png");
+		ganoelpollo = loadImage("img/galloWin.png");
+		ganoelcerdo = loadImage("img/pigWin.png");
+		ganoelelef = loadImage("img/elephantWin.png");
+		perdiopollo = loadImage("img/galloLose.png");
+		perdiocerdo = loadImage("img/pigLose.png");
+		perdioelef = loadImage("img/elephantLose.png");
 	
 		
 		for (int i=0; i<width; i++) {
@@ -283,6 +289,14 @@ public class Main extends PApplet implements OnMessageListener{
 			if(j1pig==true) {
 				tcpJ1.enviarMensaje("chosenPig");
 				
+				//paso a la pantalla final
+				if(cerdito1.getVida() <= 0) {
+					pantalla = 5;
+					tcpJ1.enviarMensaje("end");
+					tcpJ2.enviarMensaje("end");
+					
+				}
+				
 				cerdito1.pintar();
 				cerdito1.pintarBalas();
 				image(vidaPig, 4,11,40,40);
@@ -294,28 +308,28 @@ public class Main extends PApplet implements OnMessageListener{
 				for(int i = 0; i < cerdito1.getBalas().size(); i++) {
 					Bullet bala = cerdito1.getBalas().get(i);
 					
-					if(j2chic) {
-						System.out.println("CERDO"+cerdito1.getVida());
-						System.out.println("POLLO"+pollito2.getVida());
+					if(j2chic == true) {
 						if(cerdito1.getVida()>pollito2.getVida()) {
 							pigwin = true;
 							pollowin = false;
-							elefwin = false;
 						}
+						
 					if(dist(bala.getPx(), bala.getPy(), pollito2.getPosx(), pollito2.getPosy()) < 40) {
 						pollito2.setVida(pollito2.getVida() - danno);
 						equis += danno;
 						cerdito1.getBalas().remove(i);
 						
+						
+						
 					}
 				}
 					
-					if(j2elef) {
+					if(j2elef == true) {
 						if(cerdito1.getVida()>elefantico2.getVida()) {
 							pigwin = true;
-							pollowin = false;
 							elefwin = false;
 						}
+						
 					if(dist(bala.getPx(), bala.getPy(), elefantico2.getPosx(), elefantico2.getPosy()) < 40) {
 						elefantico2.setVida(elefantico2.getVida() - danno);
 						equis += danno;
@@ -330,6 +344,13 @@ public class Main extends PApplet implements OnMessageListener{
 			if(j1chic==true) {
 				tcpJ1.enviarMensaje("chosenChic");
 				
+				//paso a la pantalla final
+				if(pollito1.getVida() <= 0) {
+					pantalla = 5;
+					tcpJ1.enviarMensaje("end");
+					tcpJ2.enviarMensaje("end");
+				}
+				
 				pollito1.pintar();
 				pollito1.pintarBalas();
 				image(vidaPollo, 4,11,40,40);
@@ -342,12 +363,12 @@ public class Main extends PApplet implements OnMessageListener{
 				for(int i = 0; i < pollito1.getBalas().size(); i++) {
 					Bullet bala = pollito1.getBalas().get(i);
 					
-					if(j2pig) {
+					if(j2pig == true) {
 						if(pollito1.getVida()>cerdito2.getVida()) {
 							pigwin = false;
 							pollowin = true;
-							elefwin = false;
 						}
+						
 					if(dist(bala.getPx(), bala.getPy(), cerdito2.getPosx(), cerdito2.getPosy()) < 40) {
 						cerdito2.setVida(cerdito2.getVida() - danno);
 						equis += danno;
@@ -358,9 +379,8 @@ public class Main extends PApplet implements OnMessageListener{
 				}
 					
 					
-					if(j2elef) {
+					if(j2elef == true) {
 						if(pollito1.getVida()>elefantico2.getVida()) {
-							pigwin = false;
 							pollowin = true;
 							elefwin = false;
 						}
@@ -378,6 +398,13 @@ public class Main extends PApplet implements OnMessageListener{
 			if(j1elef==true) {
 				tcpJ1.enviarMensaje("chosenElef");
 				
+				//paso a la pantalla final
+				if(elefantico1.getVida() <= 0) {
+					pantalla = 5;
+					tcpJ1.enviarMensaje("end");
+					tcpJ2.enviarMensaje("end");
+				}
+				
 				elefantico1.pintar();
 				elefantico1.pintarBalas();
 				image(vidaElef, 4,11,40,40);
@@ -390,12 +417,12 @@ public class Main extends PApplet implements OnMessageListener{
 				for(int i = 0; i < elefantico1.getBalas().size(); i++) {
 					Bullet bala = elefantico1.getBalas().get(i);
 					
-					if(j2pig) {
+					if(j2pig == true) {
 						if(elefantico1.getVida()>cerdito2.getVida()) {
 							pigwin = false;
-							pollowin = false;
 							elefwin = true;
 						}
+						
 					if(dist(bala.getPx(), bala.getPy(), cerdito2.getPosx(), cerdito2.getPosy()) < 40) {
 						cerdito2.setVida(cerdito2.getVida() - danno);
 						equis += danno;
@@ -405,12 +432,12 @@ public class Main extends PApplet implements OnMessageListener{
 					}
 				}
 					
-					if(j2chic) {
+					if(j2chic == true) {
 						if(elefantico1.getVida()>pollito2.getVida()) {
-							pigwin = false;
 							pollowin = false;
 							elefwin = true;
 						}
+						
 					if(dist(bala.getPx(), bala.getPy(), pollito2.getPosx(), pollito2.getPosy()) < 40) {
 						pollito2.setVida(pollito2.getVida() - danno);
 						equis += danno;
@@ -427,6 +454,13 @@ public class Main extends PApplet implements OnMessageListener{
 			if(j2pig==true) {
 				tcpJ2.enviarMensaje("chosenPig");
 				
+				//paso a la pantalla final
+				if(cerdito2.getVida() <= 0) {
+					pantalla = 5;
+					tcpJ1.enviarMensaje("end");
+					tcpJ2.enviarMensaje("end");
+				}
+				
 				cerdito2.pintar();
 				cerdito2.pintarBalas();
 				image(vidaPig, 1004,11,40,40);
@@ -440,29 +474,30 @@ public class Main extends PApplet implements OnMessageListener{
 				for(int i = 0; i < cerdito2.getBalas().size(); i++) {
 					Bullet bala2 = cerdito2.getBalas().get(i);
 					
-					if(j1chic) {
+					if(j1chic == true) {
 						if(cerdito2.getVida()>pollito1.getVida()) {
 							pigwin = true;
 							pollowin = false;
-							elefwin = false;
 						}
+						
 					if(dist(bala2.getPx(), bala2.getPy(), pollito1.getPosx(), pollito1.getPosy()) < 40) {
-						pollito1.setVida(pollito2.getVida() - danno);
+						pollito1.setVida(pollito1.getVida() - danno);
 						cerdito2.getBalas().remove(i);
 						
 						
 					}
 				}
 					
-					if(j1elef) {
+					if(j1elef == true) {
 						if(cerdito2.getVida()>elefantico1.getVida()) {
 							pigwin = true;
-							pollowin = false;
 							elefwin = false;
 						}
+						
 					if(dist(bala2.getPx(), bala2.getPy(), elefantico1.getPosx(), elefantico1.getPosy()) < 40) {
-						elefantico1.setVida(elefantico2.getVida() - danno);
+						elefantico1.setVida(elefantico1.getVida() - danno);
 						cerdito2.getBalas().remove(i);
+						
 						
 						
 					}
@@ -471,6 +506,13 @@ public class Main extends PApplet implements OnMessageListener{
 		}
 			if(j2chic==true) {
 				tcpJ2.enviarMensaje("chosenChic");
+				
+				//paso a la pantalla final
+				if(pollito2.getVida() <= 0) {
+					pantalla = 5;
+					tcpJ1.enviarMensaje("end");
+					tcpJ2.enviarMensaje("end");
+				}
 				
 				pollito2.pintar();
 				pollito2.pintarBalas();
@@ -485,12 +527,12 @@ public class Main extends PApplet implements OnMessageListener{
 				for(int i = 0; i < pollito2.getBalas().size(); i++) {
 					Bullet bala2 = pollito2.getBalas().get(i);
 					
-					if(j1pig) {
+					if(j1pig==true) {
 						if(pollito2.getVida()>cerdito1.getVida()) {
 							pigwin = false;
 							pollowin = true;
-							elefwin = false;
 						}
+						
 					if(dist(bala2.getPx(), bala2.getPy(), cerdito1.getPosx(), cerdito1.getPosy()) < 40) {
 						cerdito1.setVida(cerdito1.getVida() - danno);
 						pollito2.getBalas().remove(i);
@@ -499,12 +541,12 @@ public class Main extends PApplet implements OnMessageListener{
 					}
 				}
 					
-					if(j1elef) {
+					if(j1elef==true) {
 						if(pollito2.getVida()>elefantico1.getVida()) {
-							pigwin = false;
 							pollowin = true;
 							elefwin = false;
 						}
+						
 					if(dist(bala2.getPx(), bala2.getPy(), elefantico1.getPosx(), elefantico1.getPosy()) < 40) {
 						elefantico1.setVida(elefantico1.getVida() - danno);
 						pollito2.getBalas().remove(i);
@@ -516,6 +558,13 @@ public class Main extends PApplet implements OnMessageListener{
 		}
 			if(j2elef==true) {
 				tcpJ2.enviarMensaje("chosenElef");
+				
+				//paso a la pantalla final
+				if(elefantico2.getVida() <= 0) {
+					pantalla = 5;
+					tcpJ1.enviarMensaje("end");
+					tcpJ2.enviarMensaje("end");
+				}
 				
 				elefantico2.pintar();
 				elefantico2.pintarBalas();
@@ -530,12 +579,12 @@ public class Main extends PApplet implements OnMessageListener{
 				for(int i = 0; i < elefantico2.getBalas().size(); i++) {
 					Bullet bala2 = elefantico2.getBalas().get(i);
 					
-					if(j1pig) {
+					if(j1pig==true) {
 						if(elefantico2.getVida()>cerdito1.getVida()) {
 							pigwin = false;
-							pollowin = false;
 							elefwin = true;
 						}
+						
 					if(dist(bala2.getPx(), bala2.getPy(), cerdito1.getPosx(), cerdito1.getPosy()) < 40) {
 						cerdito1.setVida(cerdito1.getVida() - danno);
 						elefantico2.getBalas().remove(i);
@@ -544,12 +593,12 @@ public class Main extends PApplet implements OnMessageListener{
 					}
 				}
 					
-					if(j1chic) {
+					if(j1chic==true) {
 						if(elefantico2.getVida()>pollito1.getVida()) {
-							pigwin = false;
 							pollowin = false;
 							elefwin = true;
 						}
+						
 					if(dist(bala2.getPx(), bala2.getPy(), pollito1.getPosx(), pollito1.getPosy()) < 40) {
 						pollito1.setVida(pollito1.getVida() - danno);
 						elefantico2.getBalas().remove(i);
@@ -571,34 +620,51 @@ public class Main extends PApplet implements OnMessageListener{
 			if(pigwin == true) {
 				image(cerditu,448,20);
 				ventajas = "cerdito";
-				tcpJ1.enviarMensaje(ventajas);
-				tcpJ2.enviarMensaje(ventajas);
-				
+		
 			}
 			if(pollowin == true) {
 				image(pollitu,460,20);
 				ventajas = "pollito";
-				tcpJ1.enviarMensaje(ventajas);
-				tcpJ2.enviarMensaje(ventajas);
 			}
 			if(elefwin == true) {
 				image(elefanticu,450,23);
 				ventajas = "elefantito";
-				tcpJ1.enviarMensaje(ventajas);
-				tcpJ2.enviarMensaje(ventajas);
 			}
-			
+		
+			tcpJ1.enviarMensaje(ventajas);
+			tcpJ2.enviarMensaje(ventajas);
 			
 			image(pasto,0,385);
 			if(gameTime == 0) {
 				pantalla = 5;
 				tcpJ1.enviarMensaje("end");
 				tcpJ2.enviarMensaje("end");
+				
 			}
+			
 			break;
 		case 5:
 			//pantalla ganador-perdedor
 			image(pantGanador,0,0);
+
+			if(pigwin == true) {
+				image(ganoelcerdo,300,70);
+			}else {
+				image(perdiocerdo,650,110);
+			}
+			
+			if(pollowin == true) {
+				image(ganoelpollo,300,70);
+			}else {
+				image(perdiopollo,650,110);
+			}
+			
+			if(elefwin == true) {
+				image(ganoelelef,300,70);
+			}else {
+				image(perdioelef,650,110);
+			}
+			
 			
 			break;
 		}
