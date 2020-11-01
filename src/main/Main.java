@@ -17,10 +17,10 @@ import processing.core.PImage;
 
 public class Main extends PApplet implements OnMessageListener{
 	
-	int pantalla, gameTime= 320, players = 0, danno = 5, equis = 0;
+	int pantalla, gameTime= 30, players = 0, danno = 5, equis = 0;
 	PImage pantUno, prim, primP, pantInicio, pantPlayer, pantControl, pantInstru, pantJuego, pantGanador, jugar, jugarP,
 	instru, instruP, contro, controP, pasto, atras, atrasP, jugarPP, jugarPPP, player1, player2,
-	vidaPig, vidaElef, vidaPollo, mapabw, cerditu, pollitu, elefanticu, ganoelpollo, ganoelcerdo, ganoelelef, perdiopollo, perdiocerdo, perdioelef;
+	vidaPig, vidaElef, vidaPollo, mapabw, cerditu, pollitu, elefanticu, ganoelpollo, ganoelcerdo, ganoelelef, perdiopollo, perdiocerdo, perdioelef, same1, same2;
 	
 	String ip, j1,j2;
 	Pig cerdito1, cerdito2;
@@ -34,6 +34,8 @@ public class Main extends PApplet implements OnMessageListener{
 			pigwin = false, pollowin = false, elefwin = false;
 	
 	Boolean salto1 = false, salto2 = false, salto3 = false;
+	
+	Boolean same = false;
 
 	private TCPSingletonJ1 tcpJ1;
 	private TCPSingletonJ2 tcpJ2;
@@ -111,7 +113,7 @@ public class Main extends PApplet implements OnMessageListener{
 		prim = loadImage("img/prim.png");
 		primP = loadImage("img/primP.png");
 		pantInicio = loadImage("img/pantallaInicio.png");
-		pantPlayer = loadImage("img/pantallaPlayer.png");
+		pantPlayer = loadImage("img/pantallaSeleccion.png");
 		pantInstru = loadImage("img/instru.png");
 		atras = loadImage("img/atras.png");
 		atrasP = loadImage("img/atrasP.png");
@@ -137,11 +139,13 @@ public class Main extends PApplet implements OnMessageListener{
 		pollitu = loadImage("img/galloChiqui.png");
 		elefanticu = loadImage("img/elefanteChiqui.png");
 		ganoelpollo = loadImage("img/galloWin.png");
-		ganoelcerdo = loadImage("img/pigWin.png");
-		ganoelelef = loadImage("img/elephantWin.png");
+		ganoelcerdo = loadImage("img/pig-win.png");
+		ganoelelef = loadImage("img/elef_win.png");
 		perdiopollo = loadImage("img/galloLose.png");
-		perdiocerdo = loadImage("img/pigLose.png");
-		perdioelef = loadImage("img/elephantLose.png");
+		perdiocerdo = loadImage("img/pig-lose.png");
+		perdioelef = loadImage("img/elef_lose.png");
+		same1 = loadImage("img/same-player1.png");
+		same2 = loadImage("img/same-player2.png");
 	
 		
 		for (int i=0; i<width; i++) {
@@ -246,6 +250,7 @@ public class Main extends PApplet implements OnMessageListener{
 			break;
 		case 3:
 			//pantalla elegir jugadores
+			imageMode(CORNER);
 			image(pantPlayer,0,0);
 			image(jugarPP, 930,10);
 			image(atras, 20,10);
@@ -258,25 +263,63 @@ public class Main extends PApplet implements OnMessageListener{
 			}
 			
 			
-			if(j1pig==true) {
-				image(player1, 160,373);
-			}
-			if(j1chic==true) {
-				image(player1, 470,373);
-			}
-			if(j1elef==true) {
-				image(player1, 770,373);
-			}
+					
+					if(j1pig==true) {
+						imageMode(CORNER);
+						image(player1, 160,373);
+						if (same == true) {
+							imageMode(CENTER);
+							image(same2, 1048/2, 450/2);
+						}
+					}
+				
+				
+				if(j1chic==true) {
+					imageMode(CORNER);
+					image(player1, 470,373);
+					if (same == true) {
+						imageMode(CENTER);
+						image(same2, 1048/2, 450/2);
+					}
+				}
+				
+				if(j1elef==true) {
+					imageMode(CORNER);
+					image(player1, 770,373);
+					if (same == true) {
+						imageMode(CENTER);
+						image(same2, 1048/2, 450/2);
+					}
+				}
+				
+			
 			if(j2pig==true) {
+				imageMode(CORNER);
 				image(player2, 160,373);
-			}
-			if(j2chic==true) {
-				image(player2, 470,373);
-			}
-			if(j2elef==true) {
-				image(player2, 770,373);
+				if (same == true) {
+					imageMode(CENTER);
+					image(same1, 1048/2, 450/2);
+			    }
 			}
 			
+			if(j2chic==true) {
+				imageMode(CORNER);
+				image(player2, 470,373);
+				if (same == true) {
+					imageMode(CENTER);
+					image(same1, 1048/2, 450/2);
+				}
+			}
+			
+			if(j2elef==true) {
+				imageMode(CORNER);
+				image(player2, 770,373);
+				if (same == true) {
+					imageMode(CENTER);
+					image(same1, 1048/2, 450/2);
+				}
+			
+			}
 			
 			break;
 		case 4:
@@ -396,7 +439,7 @@ public class Main extends PApplet implements OnMessageListener{
 		}
 			
 			if(j1elef==true) {
-				tcpJ1.enviarMensaje("chosenElef");
+			tcpJ1.enviarMensaje("chosenElef");
 				
 				//paso a la pantalla final
 				if(elefantico1.getVida() <= 0) {
@@ -452,7 +495,7 @@ public class Main extends PApplet implements OnMessageListener{
 			
 			//pintar jugador 2
 			if(j2pig==true) {
-				tcpJ2.enviarMensaje("chosenPig");
+			tcpJ2.enviarMensaje("chosenPig");
 				
 				//paso a la pantalla final
 				if(cerdito2.getVida() <= 0) {
@@ -505,7 +548,7 @@ public class Main extends PApplet implements OnMessageListener{
 			}
 		}
 			if(j2chic==true) {
-				tcpJ2.enviarMensaje("chosenChic");
+			tcpJ2.enviarMensaje("chosenChic");
 				
 				//paso a la pantalla final
 				if(pollito2.getVida() <= 0) {
@@ -557,7 +600,7 @@ public class Main extends PApplet implements OnMessageListener{
 			}
 		}
 			if(j2elef==true) {
-				tcpJ2.enviarMensaje("chosenElef");
+			tcpJ2.enviarMensaje("chosenElef");
 				
 				//paso a la pantalla final
 				if(elefantico2.getVida() <= 0) {
@@ -647,24 +690,99 @@ public class Main extends PApplet implements OnMessageListener{
 			//pantalla ganador-perdedor
 			image(pantGanador,0,0);
 
-			if(pigwin == true) {
-				image(ganoelcerdo,300,70);
-			}else {
-				image(perdiocerdo,650,110);
+			//pig vs elef
+			if (j1pig == true && j2elef == true) {
+				
+				if(pigwin == true) {
+					image(ganoelcerdo,230,70);
+				}else {
+					image(perdiocerdo,580,110);
+				}
+				if(elefwin == true) {
+					image(ganoelelef,230,70);
+				}else {
+					image(perdioelef,600,110);
+				}
 			}
 			
-			if(pollowin == true) {
-				image(ganoelpollo,300,70);
-			}else {
-				image(perdiopollo,650,110);
+			//pig vs chic
+			if (j1pig == true && j2chic == true) {
+				if(pigwin == true) {
+					image(ganoelcerdo,230,70);
+				}else {
+					image(perdiocerdo,580,110);
+				}
+				if(pollowin == true) {
+					image(ganoelpollo,300,70);
+				}else {
+					image(perdiopollo,650,110);
+				}
 			}
 			
-			if(elefwin == true) {
-				image(ganoelelef,300,70);
-			}else {
-				image(perdioelef,650,110);
+			//elef vs pig
+			if (j1elef == true && j2pig == true) {
+				if(pigwin == true) {
+					image(ganoelcerdo,230,70);
+				}else {
+					image(perdiocerdo,580,110);
+				}
+				if(elefwin == true) {
+					image(ganoelelef,230,70);
+				}else {
+					image(perdioelef,600,110);
+				}
 			}
 			
+			//elef vs chic
+			if (j1elef == true && j2chic == true) {
+				
+				if(elefwin == true) {
+					image(ganoelelef,230,70);
+				}else {
+					image(perdioelef,600,110);
+				}
+				
+				if(pollowin == true) {
+					image(ganoelpollo,300,70);
+				}else {
+					image(perdiopollo,650,110);
+				}
+			}
+			
+			//chic vs pig
+			if (j1chic == true && j2pig == true) {
+				
+				if(pollowin == true) {
+					image(ganoelpollo,300,70);
+				}else {
+					image(perdiopollo,650,110);
+				}
+				
+				if(pigwin == true) {
+					image(ganoelcerdo,230,70);
+				}else {
+					image(perdiocerdo,580,110);
+				}
+				
+			}
+			
+			//chic vs elef 
+			if (j1chic == true && j2elef == true) {
+				
+				if (j1chic == true && j2pig == true) {
+					if(pollowin == true) {
+						image(ganoelpollo,300,70);
+					}else {
+						image(perdiopollo,650,110);
+					}
+					
+				if(elefwin == true) {
+					    image(ganoelelef,230,70);
+					}else {
+						image(perdioelef,600,110);
+					}
+			}
+		}
 			
 			break;
 		}
@@ -810,6 +928,13 @@ public class Main extends PApplet implements OnMessageListener{
 					j1elef = false;
 					j1chic = false;
 					j1live = true;
+					if (j2pig == true) {
+						j1pig = false;
+						same = true;
+					} else {
+						same = false;
+					}
+					
 					break;
 					
 				case "chicken":
@@ -819,6 +944,12 @@ public class Main extends PApplet implements OnMessageListener{
 					j1elef = false;
 					j1chic = true;
 					j1live = true;
+					if (j2chic == true) {
+						same = true;
+						j1chic = false;
+					} else {
+						same = false;
+					}
 					break;
 					
 				case "elephant":
@@ -828,6 +959,12 @@ public class Main extends PApplet implements OnMessageListener{
 					j1elef = true;
 					j1chic = false;
 					j1live = true;
+					if (j2elef == true) {
+						j1elef = false;
+						same = true;
+					} else {
+						same = false;
+					}
 					break;
 				}
 			}
@@ -841,6 +978,12 @@ public class Main extends PApplet implements OnMessageListener{
 					j2pig = true;
 					j2elef = false;
 					j2chic = false;
+					if (j1pig == true) {
+						j2pig = false;
+						same = true;
+					} else {
+						same = false;
+					}
 					break;
 				case "chicken":
 					pollito2 = new Chicken(xJ2, yJ2, this);
@@ -848,6 +991,12 @@ public class Main extends PApplet implements OnMessageListener{
 					j2pig = false;
 					j2elef = false;
 					j2chic = true;
+					if (j1chic == true) {
+						j2chic = false;
+						same = true;
+					} else {
+						same = false;
+					}
 					break;
 				case "elephant":
 					elefantico2 = new Elephant(xJ2, yJ2,this);
@@ -855,6 +1004,12 @@ public class Main extends PApplet implements OnMessageListener{
 					j2pig = false;
 					j2elef = true;
 					j2chic = false;
+					if (j1elef == true) {
+						j2elef = false;
+						same = true;
+					} else {
+						same = false;
+					}
 					break;
 				}
 			}
