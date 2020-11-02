@@ -17,7 +17,7 @@ import processing.core.PImage;
 
 public class Main extends PApplet implements OnMessageListener{
 	
-	int pantalla, gameTime= 120, players = 0, danno = 5, equis = 0;
+	int pantalla, gameTime= 120, players = 0, danno = 1, equis = 0;
 	PImage pantUno, prim, primP, pantInicio, pantPlayer, pantControl, pantInstru, pantJuego, pantGanador, jugar, jugarP,
 	instru, instruP, contro, controP, pasto, atras, atrasP, jugarPP, jugarPPP, player1, player2,
 	vidaPig, vidaElef, vidaPollo, mapabw, cerditu, pollitu, elefanticu, ganoelpollo, ganoelcerdo, ganoelelef, perdiopollo, perdiocerdo, perdioelef, same1, same2;
@@ -787,8 +787,6 @@ public class Main extends PApplet implements OnMessageListener{
 			break;
 		}
 		 
-		fill(355,0,0);
-		text("x:"+mouseX+"y:"+mouseY, mouseX, mouseY);
 		
 	}
 	
@@ -1175,18 +1173,20 @@ public class Main extends PApplet implements OnMessageListener{
 						pollito1.agregarBalas();
 					}
 					
-if 					(mapabw.get((int) pollito1.getPosx()+35, (int) pollito1.getPosy()+75) == color(255,255,255)) {
+					
+					if(mapabw.get((int) pollito1.getPosx()+35, (int) pollito1.getPosy()+75) == color(255,255,255)) {
 						
 						pollito1.setPosx(coords.getPosx());
 						System.out.println("chic esta aqui  "+ pollito1.getPosy());
 						
+							if(coords.getType().contains("ap")) {
+								pollito1.setPosy(pollito1.getPosy()-coords.getPosy());
+								noPuede = false;
+							}else {
+								noPuede = true;
+							}
 						
-						if(coords.getType().contains("ap")) {
-							pollito1.setPosy(pollito1.getPosy()-coords.getPosy());
-							noPuede = false;
-						}else {
-							noPuede = true;
-						}
+						
 						
 						new Thread(
 			                    ()->{
