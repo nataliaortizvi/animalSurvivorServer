@@ -17,7 +17,7 @@ import processing.core.PImage;
 
 public class Main extends PApplet implements OnMessageListener{
 	
-	int pantalla, gameTime= 30, players = 0, danno = 5, equis = 0;
+	int pantalla, gameTime= 120, players = 0, danno = 5, equis = 0;
 	PImage pantUno, prim, primP, pantInicio, pantPlayer, pantControl, pantInstru, pantJuego, pantGanador, jugar, jugarP,
 	instru, instruP, contro, controP, pasto, atras, atrasP, jugarPP, jugarPPP, player1, player2,
 	vidaPig, vidaElef, vidaPollo, mapabw, cerditu, pollitu, elefanticu, ganoelpollo, ganoelcerdo, ganoelelef, perdiopollo, perdiocerdo, perdioelef, same1, same2;
